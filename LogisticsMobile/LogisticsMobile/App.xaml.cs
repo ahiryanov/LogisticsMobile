@@ -10,8 +10,7 @@ namespace LogisticsMobile
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new CategoriesPage());
         }
 
         protected override void OnStart()
