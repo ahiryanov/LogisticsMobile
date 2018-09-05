@@ -35,14 +35,14 @@ namespace LogisticsMobile.ViewModels
             {
                 isBusy = value;
                 OnPropertyChanged(nameof(IsBusy));
-                OnPropertyChanged(nameof(IsLoaded));
+                //OnPropertyChanged(nameof(IsLoaded));
             }
         }
 
-        public bool IsLoaded
+     /*   public bool IsLoaded
         {
             get { return !isBusy; }
-        }
+        }*/
 
         public List<string> Categories
         {
