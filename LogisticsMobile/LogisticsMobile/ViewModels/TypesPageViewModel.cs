@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace LogisticsMobile.ViewModels
 {
     class TypesPageViewModel : INotifyPropertyChanged
     {
+        public INavigation Navigation;
+
         ServerController _ctrl = new ServerController();
         private bool _isBusy;
         private List<string> _types;
@@ -59,8 +62,14 @@ namespace LogisticsMobile.ViewModels
             get { return _selectedType; }
             set
             {
-                _selectedType = value;
-                OnPropertyChanged(nameof(SelectedType));
+                if (_selectedType != value)
+                {
+                    var tempType = value;
+                    _selectedType = null;
+                    OnPropertyChanged(nameof(SelectedType));
+                    if (tempType != null)
+                        Navigation.PushAsync(new TypesPage(tempType));
+                }
             }
         }
 

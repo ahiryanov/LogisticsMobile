@@ -10,6 +10,7 @@ namespace LogisticsMobile.ViewModels
     class CategoryesPageViewModel : INotifyPropertyChanged
     {
         public INavigation Navigation { get; set; }
+
         ServerController ctrl = new ServerController();
         private bool isBusy;
         private List<string> categories;
@@ -18,7 +19,6 @@ namespace LogisticsMobile.ViewModels
         public CategoryesPageViewModel()
         {
             LoadCategories();
-           // Categories = await ctrl.GetCategories();
         }
 
         private async void LoadCategories()
@@ -59,14 +59,14 @@ namespace LogisticsMobile.ViewModels
             get { return selectedCategory; }
             set
             {
-                selectedCategory = value;
-                
-                if (selectedCategory != null)
+                if (selectedCategory != value)
                 {
-                    Navigation.PushAsync(new TypesPage(selectedCategory));
-                    SelectedCategory = null;
+                    var tempCategory = value;
+                    selectedCategory = null;
+                    OnPropertyChanged(nameof(SelectedCategory));
+                    if (tempCategory != null)
+                        Navigation.PushAsync(new TypesPage(tempCategory));
                 }
-                OnPropertyChanged(nameof(SelectedCategory));
             }
         }
 
