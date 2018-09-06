@@ -20,6 +20,7 @@ namespace LogisticsMobile.ViewModels
         public EquipmentsPageViewModel(Model model)
         {
             _model = model;
+            
             LoadEquipments();
            // Categories = await ctrl.GetCategories();
         }
