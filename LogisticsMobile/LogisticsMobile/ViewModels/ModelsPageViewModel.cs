@@ -13,8 +13,8 @@ namespace LogisticsMobile.ViewModels
 
         ServerController _ctrl = new ServerController();
         private bool _isBusy;
-        private List<Model> _models;
-        private string _selectedModel;
+        private List<ModelCount> _models;
+        private ModelCount _selectedModel;
         private string _category;
         private string _type;
 
@@ -49,7 +49,7 @@ namespace LogisticsMobile.ViewModels
             get { return !_isBusy; }
         }
 
-        public List<Model> Models
+        public List<ModelCount> Models
         {
             get { return _models; }
             set
@@ -59,7 +59,7 @@ namespace LogisticsMobile.ViewModels
             }
         }
 
-        public string SelectedModel
+        public ModelCount SelectedModel
         {
             get { return _selectedModel; }
             set

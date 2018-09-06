@@ -35,11 +35,11 @@ namespace LogisticsMobile
             return JsonConvert.DeserializeObject<List<string>>(result);
         }
 
-        public async Task<List<Model>> GetModels(string category, string type)
+        public async Task<List<ModelCount>> GetModels(string category, string type)
         {
             HttpClient client = GetClient();
             string result = await client.GetStringAsync(Url + "/" + category + "/" + type);
-            return JsonConvert.DeserializeObject<List<Model>>(result);
+            return JsonConvert.DeserializeObject<List<ModelCount>>(result);
         }
           
                // добавляем одного друга

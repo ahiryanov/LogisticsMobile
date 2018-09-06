@@ -1,17 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LogisticsMobile.ModelsPage">
+             x:Class="LogisticsMobile.ModelsPage"
+             Content="Модель">
     <ContentPage.Content>
         <StackLayout>
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-            <ListView ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel,Mode=TwoWay}">
+            <ListView ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel,Mode=TwoWay}" RowHeight="64" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal" Padding="5" VerticalOptions="Center">
-                                <Label Text="{Binding VendorName,StringFormat='{0} '}" />
-                                <Label Text="{Binding ModelName}" />
+                            <StackLayout Padding="16,8,16,8">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding Model.ModelName}" TextColor="Black" FontSize="16" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding Model.VendorName}" FontSize="14" HorizontalOptions="StartAndExpand"/>
+                                    <Label Text="{Binding Count,StringFormat='едениц оборудования: {0}'}" FontSize="12" VerticalOptions="End"/>
+                                </StackLayout>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

@@ -16,7 +16,7 @@ namespace LogisticsMobile
 		public ModelsPage (string category, string type)
 		{
 			InitializeComponent ();
-            ModelsPageViewModel mpvm = new ModelsPageViewModel(category, type);
+            ModelsPageViewModel mpvm = new ModelsPageViewModel(category, type) { Navigation = this.Navigation };
             BindingContext = mpvm;
 		}
 	}
