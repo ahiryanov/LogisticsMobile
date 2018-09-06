@@ -12,7 +12,7 @@ namespace LogisticsMobile
 {
     public class ServerController
     {
-        const string Url = "http://192.168.10.10:54297/api/Equipments";
+        const string Url = "http://192.168.0.102:54297/api/Equipments";
         // настройка клиента
         private HttpClient GetClient()
         {
@@ -41,8 +41,15 @@ namespace LogisticsMobile
             string result = await client.GetStringAsync(Url + "/" + category + "/" + type);
             return JsonConvert.DeserializeObject<List<ModelCount>>(result);
         }
-          
-               // добавляем одного друга
+
+        public async Task<List<Equipment>> GetEquipments(Model model)
+        {
+            HttpClient client = GetClient();
+            string result = await client.GetStringAsync(Url + "/" + model.Category + "/" + model.EquipmentType + "/" +model.IDModel);
+            return JsonConvert.DeserializeObject<List<Equipment>>(result);
+        }
+
+        // добавляем одного друга
         public async Task<Equipment> Add(Equipment equipment)
         {
             HttpClient client = GetClient();
