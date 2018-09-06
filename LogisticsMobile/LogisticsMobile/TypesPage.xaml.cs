@@ -16,7 +16,7 @@ namespace LogisticsMobile
 		public TypesPage (string category)
 		{
 			InitializeComponent ();
-            TypesPageViewModel tpvm = new TypesPageViewModel(category);
+            TypesPageViewModel tpvm = new TypesPageViewModel(category) { Navigation = this.Navigation };
             BindingContext = tpvm;
 		}
 	}

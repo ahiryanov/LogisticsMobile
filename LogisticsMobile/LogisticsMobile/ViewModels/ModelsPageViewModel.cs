@@ -7,27 +7,29 @@ using Xamarin.Forms;
 
 namespace LogisticsMobile.ViewModels
 {
-    class TypesPageViewModel : INotifyPropertyChanged
+    class ModelsPageViewModel : INotifyPropertyChanged
     {
         public INavigation Navigation;
 
         ServerController _ctrl = new ServerController();
         private bool _isBusy;
-        private List<string> _types;
-        private string _selectedType;
+        private List<Model> _models;
+        private string _selectedModel;
         private string _category;
+        private string _type;
 
-        public TypesPageViewModel(string category)
+        public ModelsPageViewModel(string category, string type)
         {
             _category = category;
-            LoadTypes();
+            _type = type;
+            LoadModels();
            // Categories = await ctrl.GetCategories();
         }
 
-        private async void LoadTypes()
+        private async void LoadModels()
         {
             IsBusy = true;
-            Types = await _ctrl.GetTypes(_category);
+            Models = await _ctrl.GetModels(_category,_type);
             IsBusy = false;
         }
 
@@ -47,28 +49,28 @@ namespace LogisticsMobile.ViewModels
             get { return !_isBusy; }
         }
 
-        public List<string> Types
+        public List<Model> Models
         {
-            get { return _types; }
+            get { return _models; }
             set
             {
-                _types = value;
-                OnPropertyChanged(nameof(Types));
+                _models = value;
+                OnPropertyChanged(nameof(Models));
             }
         }
 
-        public string SelectedType
+        public string SelectedModel
         {
-            get { return _selectedType; }
+            get { return _selectedModel; }
             set
             {
-                if (_selectedType != value)
+                if (_selectedModel != value)
                 {
-                    var tempType = value;
-                    _selectedType = null;
-                    OnPropertyChanged(nameof(SelectedType));
-                    if (tempType != null)
-                        Navigation.PushAsync(new ModelsPage(_category, tempType));
+                    var tempModel = value;
+                    _selectedModel = null;
+                    OnPropertyChanged(nameof(SelectedModel));
+                    //if (tempModel != null) 
+                       // Navigation.PushAsync(new EquipmentsPage(tempModel));
                 }
             }
         }

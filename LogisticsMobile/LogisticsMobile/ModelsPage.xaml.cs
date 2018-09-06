@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogisticsMobile.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,11 @@ namespace LogisticsMobile
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ModelsPage : ContentPage
 	{
-		public ModelsPage ()
+		public ModelsPage (string category, string type)
 		{
 			InitializeComponent ();
+            ModelsPageViewModel mpvm = new ModelsPageViewModel(category, type);
+            BindingContext = mpvm;
 		}
 	}
 }

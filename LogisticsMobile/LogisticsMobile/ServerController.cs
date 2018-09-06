@@ -41,23 +41,7 @@ namespace LogisticsMobile
             string result = await client.GetStringAsync(Url + "/" + category + "/" + type);
             return JsonConvert.DeserializeObject<List<Model>>(result);
         }
-
-        // получаем всех друзей
-        public async Task<IEnumerable<Equipment>> Get()
-        {
-            HttpClient client = GetClient();
-            string result = await client.GetStringAsync(Url);
-            return JsonConvert.DeserializeObject<IEnumerable<Equipment>>(result);
-        }
-
-        public async Task<List<string>> GetEquipment(int id)
-        {
-            HttpClient client = new HttpClient();
-            
-            string json = await client.GetStringAsync(Url);
-            return JsonConvert.DeserializeObject<List<string>>(json);
-        }
-
+          
                // добавляем одного друга
         public async Task<Equipment> Add(Equipment equipment)
         {

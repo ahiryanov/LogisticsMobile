@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <StackLayout>
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-            <ListView ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType}"/>
+            <ListView ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType,Mode=TwoWay}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

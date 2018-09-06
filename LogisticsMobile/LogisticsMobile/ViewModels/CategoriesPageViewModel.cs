@@ -12,9 +12,9 @@ namespace LogisticsMobile.ViewModels
         public INavigation Navigation { get; set; }
 
         ServerController ctrl = new ServerController();
-        private bool isBusy;
-        private List<string> categories;
-        private string selectedCategory;
+        private bool _isBusy;
+        private List<string> _categories;
+        private string _selectedCategory;
 
         public CategoryesPageViewModel()
         {
@@ -30,10 +30,10 @@ namespace LogisticsMobile.ViewModels
 
         public bool IsBusy
         {
-            get { return isBusy; }
+            get { return _isBusy; }
             set
             {
-                isBusy = value;
+                _isBusy = value;
                 OnPropertyChanged(nameof(IsBusy));
                 //OnPropertyChanged(nameof(IsLoaded));
             }
@@ -46,23 +46,23 @@ namespace LogisticsMobile.ViewModels
 
         public List<string> Categories
         {
-            get { return categories; }
+            get { return _categories; }
             set
             {
-                categories = value;
+                _categories = value;
                 OnPropertyChanged(nameof(Categories));
             }
         }
 
         public string SelectedCategory
         {
-            get { return selectedCategory; }
+            get { return _selectedCategory; }
             set
             {
-                if (selectedCategory != value)
+                if (_selectedCategory != value)
                 {
                     var tempCategory = value;
-                    selectedCategory = null;
+                    _selectedCategory = null;
                     OnPropertyChanged(nameof(SelectedCategory));
                     if (tempCategory != null)
                         Navigation.PushAsync(new TypesPage(tempCategory));
