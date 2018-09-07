@@ -12,7 +12,7 @@ namespace LogisticsMobile
 {
     public class ServerController
     {
-        const string Url = "http://192.168.10.10:54297/api/Equipments";
+        const string Url = "http://194.87.147.175:88/api/Equipments";
         // настройка клиента
         private HttpClient GetClient()
         {
