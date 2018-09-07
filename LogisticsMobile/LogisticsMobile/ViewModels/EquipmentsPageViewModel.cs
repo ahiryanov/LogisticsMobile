@@ -7,29 +7,28 @@ using Xamarin.Forms;
 
 namespace LogisticsMobile.ViewModels
 {
-    class ModelsPageViewModel : INotifyPropertyChanged
+    class EquipmentsPageViewModel : INotifyPropertyChanged
     {
         public INavigation Navigation;
 
         ServerController _ctrl = new ServerController();
         private bool _isBusy;
-        private List<ModelCount> _models;
-        private ModelCount _selectedModel;
-        private string _category;
-        private string _type;
+        private List<Equipment> _equipments;
+        private Equipment _selectedEquipment;
+        private Model _model;
 
-        public ModelsPageViewModel(string category, string type)
+        public EquipmentsPageViewModel(Model model)
         {
-            _category = category;
-            _type = type;
-            LoadModels();
+            _model = model;
+            
+            LoadEquipments();
            // Categories = await ctrl.GetCategories();
         }
 
-        private async void LoadModels()
+        private async void LoadEquipments()
         {
             IsBusy = true;
-            Models = await _ctrl.GetModels(_category,_type);
+            Equipments = await _ctrl.GetEquipments(_model);
             IsBusy = false;
         }
 
@@ -49,28 +48,28 @@ namespace LogisticsMobile.ViewModels
             get { return !_isBusy; }
         }
 
-        public List<ModelCount> Models
+        public List<Equipment> Equipments
         {
-            get { return _models; }
+            get { return _equipments; }
             set
             {
-                _models = value;
-                OnPropertyChanged(nameof(Models));
+                _equipments = value;
+                OnPropertyChanged(nameof(Equipments));
             }
         }
 
-        public ModelCount SelectedModel
+        public Equipment SelectedEquipment
         {
-            get { return _selectedModel; }
+            get { return _selectedEquipment; }
             set
             {
-                if (_selectedModel != value)
+                if (_selectedEquipment != value)
                 {
                     var tempModel = value;
-                    _selectedModel = null;
-                    OnPropertyChanged(nameof(SelectedModel));
-                    if (tempModel != null) 
-                        Navigation.PushAsync(new EquipmentsPage(tempModel.Model));
+                    _selectedEquipment = null;
+                    OnPropertyChanged(nameof(SelectedEquipment));
+                    //if (tempModel != null) 
+                       // Navigation.PushAsync(new EquipmentsPage(tempModel));
                 }
             }
         }
