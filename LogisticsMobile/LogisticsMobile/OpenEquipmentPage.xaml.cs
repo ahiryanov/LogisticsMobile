@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace LogisticsMobile.ViewModels
+namespace LogisticsMobile
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class OpenEquipmentPage : ContentPage
-	{
-		public OpenEquipmentPage ()
-		{
-			InitializeComponent ();
-		}
-	}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class OpenEquipmentPage : TabbedPage
+    {
+        public OpenEquipmentPage(Equipment equipment)
+        {
+            InitializeComponent ();
+            Children.Add(new EquipmentInfoPage(equipment));
+        }
+    }
 }

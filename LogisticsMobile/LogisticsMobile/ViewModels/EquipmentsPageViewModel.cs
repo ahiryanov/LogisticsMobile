@@ -65,11 +65,11 @@ namespace LogisticsMobile.ViewModels
             {
                 if (_selectedEquipment != value)
                 {
-                    var tempModel = value;
+                    var tempEquipment = value;
                     _selectedEquipment = null;
                     OnPropertyChanged(nameof(SelectedEquipment));
-                    //if (tempModel != null) 
-                       // Navigation.PushAsync(new EquipmentsPage(tempModel));
+                    if (tempEquipment != null) 
+                        Navigation.PushAsync(new OpenEquipmentPage(tempEquipment));
                 }
             }
         }
