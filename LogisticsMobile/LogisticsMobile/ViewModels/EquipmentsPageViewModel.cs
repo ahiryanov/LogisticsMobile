@@ -10,6 +10,7 @@ namespace LogisticsMobile.ViewModels
     class EquipmentsPageViewModel : INotifyPropertyChanged
     {
         public INavigation Navigation;
+        public ICommand RefreshPullCommand;
 
         ServerController _ctrl = new ServerController();
         private bool _isBusy;
@@ -20,7 +21,7 @@ namespace LogisticsMobile.ViewModels
         public EquipmentsPageViewModel(Model model)
         {
             _model = model;
-            
+            RefreshPullCommand = new Command(LoadEquipments);
             LoadEquipments();
            // Categories = await ctrl.GetCategories();
         }
