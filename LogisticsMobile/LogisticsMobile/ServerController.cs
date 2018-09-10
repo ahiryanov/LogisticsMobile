@@ -63,6 +63,13 @@ namespace LogisticsMobile
             return JsonConvert.DeserializeObject<List<Equipment>>(result);
         }
 
+        public async Task<List<TransferEquipment>> GetHistory(Equipment equipment)
+        {
+            HttpClient client = GetClient();
+            string result = await client.GetStringAsync(Url + "/" + equipment.IDEquipment + "/history");
+            return JsonConvert.DeserializeObject<List<TransferEquipment>>(result);
+        }
+
         // добавляем одного друга
         public async Task<Equipment> Add(Equipment equipment)
         {

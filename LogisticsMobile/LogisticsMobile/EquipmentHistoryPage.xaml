@@ -5,9 +5,24 @@
              Title="История">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+            <ListView ItemsSource="{Binding Histories}" RowHeight="64" ItemSelected="ListView_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="16,8,16,8">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding TransferFrom,StringFormat='Из \'{0}\''}" TextColor="Black" FontSize="16" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding TransferTo,StringFormat='В \'{0}\''}" TextColor="Black" FontSize="16" HorizontalOptions="StartAndExpand"/>
+                                    <Label Text="{Binding TransferDateTime,StringFormat='дата: {0:dd.MM.yyyy}'}" FontSize="14" VerticalOptions="End"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

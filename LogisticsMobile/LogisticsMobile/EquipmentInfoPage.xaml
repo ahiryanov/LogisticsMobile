@@ -4,22 +4,23 @@
              x:Class="LogisticsMobile.EquipmentInfoPage"
              Title="Информация">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="IDEquipment"/>
-            <Label Text="{Binding Equipment.IDEquipment}"/>
-            <Label Text="PositionState"/>
-            <Picker ItemsSource="{Binding Positions}" InputTransparent="True" />
-            <Label Text="HealthState"/>
-            <Picker ItemsSource="{Binding Healths}" InputTransparent="True" />
-            <Label Text="AssignedPosition"/>
-            <Picker InputTransparent="True" />
-            <Label Text="Description"/>
-            <Editor Text="{Binding Equipment.Description}" />
-            <Label Text="SerialNumber"/>
-            <Entry Text="{Binding Equipment.SerialNumber}" />
-            <Label Text="ISNumber"/>
-            <Entry Text="{Binding Equipment.ISNumber}" />
-
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Padding="16" >
+                <Label Text="IDEquipment"/>
+                <Label Text="{Binding Equipment.IDEquipment}" TextColor="Black" FontSize="Medium"/>
+                <Label Text="PositionState"/>
+                <Picker ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}"/>
+                <Label Text="HealthState"/>
+                <Picker ItemsSource="{Binding Healths}" SelectedItem="{Binding SelectedHealth}"/>
+                <Label Text="AssignedPosition"/>
+                <Picker ItemsSource="{Binding AssignedPositions}" SelectedItem="{Binding SelectedAssignedPosition}"/>
+                <Label Text="Description"/>
+                <Editor Text="{Binding Equipment.Description}" />
+                <Label Text="SerialNumber"/>
+                <Entry Text="{Binding Equipment.SerialNumber}" />
+                <Label Text="ISNumber"/>
+                <Entry Text="{Binding Equipment.ISNumber}" />
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
