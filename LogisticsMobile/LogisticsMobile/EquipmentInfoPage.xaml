@@ -5,9 +5,21 @@
              Title="Информация">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="IDEquipment"/>
+            <Label Text="{Binding Equipment.IDEquipment}"/>
+            <Label Text="PositionState"/>
+            <Picker ItemsSource="{Binding Positions}" InputTransparent="True" />
+            <Label Text="HealthState"/>
+            <Picker ItemsSource="{Binding Healths}" InputTransparent="True" />
+            <Label Text="AssignedPosition"/>
+            <Picker InputTransparent="True" />
+            <Label Text="Description"/>
+            <Editor Text="{Binding Equipment.Description}" />
+            <Label Text="SerialNumber"/>
+            <Entry Text="{Binding Equipment.SerialNumber}" />
+            <Label Text="ISNumber"/>
+            <Entry Text="{Binding Equipment.ISNumber}" />
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

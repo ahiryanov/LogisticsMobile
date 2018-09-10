@@ -21,6 +21,20 @@ namespace LogisticsMobile
             return client;
         }
 
+        public async Task<List<string>> GetPositions()
+        {
+            HttpClient client = GetClient();
+            string result = await client.GetStringAsync(Url + "/getpositions");
+            return JsonConvert.DeserializeObject<List<string>>(result);
+        }
+
+        public async Task<List<string>> GetHealths()
+        {
+            HttpClient client = GetClient();
+            string result = await client.GetStringAsync(Url + "/gethealths");
+            return JsonConvert.DeserializeObject<List<string>>(result);
+        }
+
         public async Task<List<string>> GetCategories()
         {
             HttpClient client = GetClient();

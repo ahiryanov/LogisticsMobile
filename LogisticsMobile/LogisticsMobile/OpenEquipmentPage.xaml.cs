@@ -16,6 +16,7 @@ namespace LogisticsMobile
         {
             InitializeComponent ();
             Children.Add(new EquipmentInfoPage(equipment));
+            Children.Add(new EquipmentHistoryPage(equipment));
         }
     }
 }
