@@ -4,7 +4,8 @@
              x:Class="LogisticsMobile.EquipmentInfoPage"
              Title="Информация">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Edit" Command="{Binding}" CommandParameter="{Binding}" />
+        <ToolbarItem Text="Edit" Command="{Binding EditClickCommand}" />
+        <ToolbarItem Text="Save" Command="{Binding SaveClickCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
@@ -12,15 +13,15 @@
                 <Label Text="IDEquipment"/>
                 <Label Text="{Binding Equipment.IDEquipment}" TextColor="Black" FontSize="Medium"/>
                 <Label Text="PositionState"/>
-                <Picker ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}"/>
+                <Picker ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}" InputTransparent ="{Binding IsNotEditing}"/>
                 <Label Text="HealthState"/>
-                <Picker ItemsSource="{Binding Healths}" SelectedItem="{Binding SelectedHealth}"/>
+                <Picker ItemsSource="{Binding Healths}" SelectedItem="{Binding SelectedHealth}" InputTransparent ="{Binding IsNotEditing}"/>
                 <Label Text="AssignedPosition"/>
-                <Picker ItemsSource="{Binding AssignedPositions}" SelectedItem="{Binding SelectedAssignedPosition}"/>
+                <Picker ItemsSource="{Binding AssignedPositions}" SelectedItem="{Binding SelectedAssignedPosition}" InputTransparent ="{Binding IsNotEditing}"/>
                 <Label Text="Description"/>
-                <Editor Text="{Binding Equipment.Description}" />
+                <Editor Text="{Binding Equipment.Description}" IsEnabled="{Binding IsEditing}"/>
                 <Label Text="SerialNumber"/>
-                <Entry Text="{Binding Equipment.SerialNumber}" />
+                <Entry Text="{Binding Equipment.SerialNumber}" IsEnabled="{Binding IsEditing}"/>
                 <Label Text="ISNumber"/>
                 <Entry Text="{Binding Equipment.ISNumber}" />
             </StackLayout>

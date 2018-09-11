@@ -13,7 +13,7 @@ namespace LogisticsMobile
 {
     public class ServerController
     {
-        const string Url = "http://194.87.147.175:88/api/Equipments";
+        const string Url = "https://logistics.ast-telecom.ru/api/Equipments";
         // настройка клиента
         private HttpClient GetClient()
         {

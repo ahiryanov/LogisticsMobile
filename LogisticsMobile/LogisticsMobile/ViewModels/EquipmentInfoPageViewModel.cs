@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace LogisticsMobile.ViewModels
 {
     class EquipmentInfoPageViewModel : INotifyPropertyChanged
     {
         ServerController _ctrl = new ServerController();
+
+        public ICommand EditClickCommand { get; protected set; }
+        public ICommand SaveClickCommand { get; protected set; }
+
+        private bool _isEditing = false;
         private Equipment _equipment;
         private ObservableCollection<string> _positions;
         private ObservableCollection<string> _healths;
@@ -19,10 +26,22 @@ namespace LogisticsMobile.ViewModels
 
         public EquipmentInfoPageViewModel(Equipment equipment)
         {
+            EditClickCommand = new Command(EditClick);
+            SaveClickCommand = new Command(SaveClick);
             _equipment = equipment;
             LoadPositions();
             LoadHealths();
             LoadAssignedPositions();
+        }
+
+        private async void SaveClick(object obj)
+        {
+            await _ctrl.Update(_equipment);
+        }
+
+        private void EditClick()
+        {
+            IsEditing = !IsEditing;
         }
 
         private async void LoadPositions()
@@ -36,13 +55,30 @@ namespace LogisticsMobile.ViewModels
             Healths = new ObservableCollection<string>(await _ctrl.GetHealths());
             SelectedHealth = _equipment.HealthState;
         }
-        
+
         private void LoadAssignedPositions()
         {
             AssignedPositions = new ObservableCollection<string>(GlobalVariables.AssignedPositions);
             SelectedAssignedPosition = _equipment.AssignedPosition;
         }
 
+        public bool IsEditing
+        {
+            get { return _isEditing; }
+            set
+            {
+                if (_isEditing != value)
+                {
+                    _isEditing = value;
+                    OnPropertyChanged(nameof(IsEditing));
+                    OnPropertyChanged(nameof(IsNotEditing));
+                }
+            }
+        }
+        public bool IsNotEditing
+        {
+            get { return !_isEditing; }
+        }
         public Equipment Equipment
         {
             get { return _equipment; }
@@ -78,7 +114,7 @@ namespace LogisticsMobile.ViewModels
                 OnPropertyChanged(nameof(Healths));
             }
         }
-        
+
         public ObservableCollection<string> AssignedPositions
         {
             get { return _assignedPositions; }

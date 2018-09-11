@@ -6,7 +6,7 @@
              Title="Категория">
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory,Mode=TwoWay}" RowHeight="48" IsRefreshing="{Binding IsBusy}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}}">
+            <ListView ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory,Mode=TwoWay}" RowHeight="48">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

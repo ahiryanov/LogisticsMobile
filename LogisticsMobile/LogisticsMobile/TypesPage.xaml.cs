@@ -18,6 +18,6 @@ namespace LogisticsMobile
 			InitializeComponent ();
             TypesPageViewModel tpvm = new TypesPageViewModel(category) { Navigation = this.Navigation };
             BindingContext = tpvm;
-		}
+        }
 	}
 }

@@ -10,7 +10,6 @@ namespace LogisticsMobile.ViewModels
     class CategoryesPageViewModel : INotifyPropertyChanged
     {
         public INavigation Navigation { get; set; }
-        public ICommand RefreshCommand { get; protected set; }
 
         ServerController ctrl = new ServerController();
         private bool _isBusy;
@@ -19,7 +18,6 @@ namespace LogisticsMobile.ViewModels
 
         public CategoryesPageViewModel()
         {
-            RefreshCommand = new Command(LoadCategories);
             LoadCategories();
         }
 

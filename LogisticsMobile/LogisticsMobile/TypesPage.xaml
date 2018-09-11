@@ -6,7 +6,7 @@
              Title="Тип оборудования">
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType,Mode=TwoWay}" RowHeight="48" IsRefreshing="{Binding IsBusy,Mode=TwoWay}">
+            <ListView ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType,Mode=TwoWay}" RowHeight="48">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
