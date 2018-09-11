@@ -6,8 +6,7 @@
              Title="Категория">
     <ContentPage.Content>
         <StackLayout>
-            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Yellow"/>
-            <ListView ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory,Mode=TwoWay}" RowHeight="48">
+            <ListView ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory,Mode=TwoWay}" RowHeight="48" IsRefreshing="{Binding IsBusy}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

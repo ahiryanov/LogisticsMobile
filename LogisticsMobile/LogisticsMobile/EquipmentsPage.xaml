@@ -5,7 +5,6 @@
              Title="Оборудование">
     <ContentPage.Content>
         <StackLayout>
-            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
             <ListView ItemsSource="{Binding Equipments}" SelectedItem="{Binding SelectedEquipment,Mode=TwoWay}" RowHeight="64" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshPullCommand}" IsRefreshing="{Binding IsBusy}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

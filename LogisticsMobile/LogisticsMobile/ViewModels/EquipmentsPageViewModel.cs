@@ -10,7 +10,7 @@ namespace LogisticsMobile.ViewModels
     class EquipmentsPageViewModel : INotifyPropertyChanged
     {
         public INavigation Navigation;
-        public ICommand RefreshPullCommand;
+        public ICommand RefreshPullCommand { get; }
 
         ServerController _ctrl = new ServerController();
         private bool _isBusy;
@@ -40,13 +40,7 @@ namespace LogisticsMobile.ViewModels
             {
                 _isBusy = value;
                 OnPropertyChanged(nameof(IsBusy));
-                OnPropertyChanged(nameof(IsLoaded));
             }
-        }
-
-        public bool IsLoaded
-        {
-            get { return !_isBusy; }
         }
 
         public List<Equipment> Equipments

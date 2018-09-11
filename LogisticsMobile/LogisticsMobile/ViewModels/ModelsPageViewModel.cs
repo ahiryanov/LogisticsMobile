@@ -23,7 +23,6 @@ namespace LogisticsMobile.ViewModels
             _category = category;
             _type = type;
             LoadModels();
-           // Categories = await ctrl.GetCategories();
         }
 
         private async void LoadModels()
@@ -40,13 +39,7 @@ namespace LogisticsMobile.ViewModels
             {
                 _isBusy = value;
                 OnPropertyChanged(nameof(IsBusy));
-                OnPropertyChanged(nameof(IsLoaded));
             }
-        }
-
-        public bool IsLoaded
-        {
-            get { return !_isBusy; }
         }
 
         public List<ModelCount> Models

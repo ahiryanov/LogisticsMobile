@@ -19,5 +19,5 @@ namespace LogisticsMobile
             EquipmentsPageViewModel epvm = new EquipmentsPageViewModel(model) { Navigation = this.Navigation };
             BindingContext = epvm;
 		}
-	}
+    }
 }

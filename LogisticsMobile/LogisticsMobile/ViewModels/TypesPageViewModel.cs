@@ -21,7 +21,6 @@ namespace LogisticsMobile.ViewModels
         {
             _category = category;
             LoadTypes();
-           // Categories = await ctrl.GetCategories();
         }
 
         private async void LoadTypes()
@@ -36,15 +35,12 @@ namespace LogisticsMobile.ViewModels
             get { return _isBusy; }
             set
             {
-                _isBusy = value;
-                OnPropertyChanged(nameof(IsBusy));
-                OnPropertyChanged(nameof(IsLoaded));
+                if (_isBusy != value)
+                {
+                    _isBusy = value;
+                    OnPropertyChanged(nameof(IsBusy));
+                }
             }
-        }
-
-        public bool IsLoaded
-        {
-            get { return !_isBusy; }
         }
 
         public List<string> Types
