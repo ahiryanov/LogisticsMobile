@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,16 +17,28 @@ namespace LogisticsMobile
         // настройка клиента
         private HttpClient GetClient()
         {
+            var authData = string.Format("{0}:{1}", APIKeys.Username, APIKeys.Password);
+            var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authData));
+
             HttpClient client = new HttpClient();
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeaderValue);
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             return client;
         }
 
         public async Task<List<string>> GetPositions()
         {
-            HttpClient client = GetClient();
-            string result = await client.GetStringAsync(Url + "/getpositions");
-            return JsonConvert.DeserializeObject<List<string>>(result);
+            try
+            {
+                HttpClient client = GetClient();
+                string result = await client.GetStringAsync(Url + "/getpositions");
+                return JsonConvert.DeserializeObject<List<string>>(result);
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
 
         public async Task<List<string>> GetHealths()
