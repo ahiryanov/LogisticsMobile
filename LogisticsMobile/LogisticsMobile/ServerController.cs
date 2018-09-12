@@ -88,7 +88,7 @@ namespace LogisticsMobile
         public async Task<Equipment> Add(Equipment equipment)
         {
             HttpClient client = GetClient();
-            var response = await client.PostAsync(Url+ "/" + equipment.IDEquipment,
+            var response = await client.PostAsync(Url,
                 new StringContent(
                     JsonConvert.SerializeObject(equipment),
                     Encoding.UTF8, "application/json"));
