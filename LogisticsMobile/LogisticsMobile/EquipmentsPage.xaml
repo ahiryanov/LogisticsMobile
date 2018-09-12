@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LogisticsMobile.EquipmentsPage"
              Title="Оборудование">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddClickCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <ListView ItemsSource="{Binding Equipments}" SelectedItem="{Binding SelectedEquipment,Mode=TwoWay}" RowHeight="64" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshPullCommand}" IsRefreshing="{Binding IsBusy}">

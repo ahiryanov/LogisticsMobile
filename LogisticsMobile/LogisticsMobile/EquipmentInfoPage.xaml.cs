@@ -17,6 +17,6 @@ namespace LogisticsMobile
 			InitializeComponent ();
             EquipmentInfoPageViewModel viewmodel = new EquipmentInfoPageViewModel(equipment);
             BindingContext = viewmodel;
-		}
+        }
 	}
 }

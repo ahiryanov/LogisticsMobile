@@ -4,27 +4,30 @@
              x:Class="LogisticsMobile.EquipmentInfoPage"
              Title="Информация">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Edit" Command="{Binding EditClickCommand}" />
         <ToolbarItem Text="Save" Command="{Binding SaveClickCommand}" />
+        <ToolbarItem Text="Edit" Command="{Binding EditClickCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Padding="16" >
-                <Label Text="IDEquipment"/>
-                <Label Text="{Binding Equipment.IDEquipment}" TextColor="Black" FontSize="Medium"/>
-                <Label Text="PositionState"/>
-                <Picker ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}" InputTransparent ="{Binding IsNotEditing}"/>
-                <Label Text="HealthState"/>
-                <Picker ItemsSource="{Binding Healths}" SelectedItem="{Binding SelectedHealth}" InputTransparent ="{Binding IsNotEditing}"/>
-                <Label Text="AssignedPosition"/>
-                <Picker ItemsSource="{Binding AssignedPositions}" SelectedItem="{Binding SelectedAssignedPosition}" InputTransparent ="{Binding IsNotEditing}"/>
-                <Label Text="Description"/>
-                <Editor Text="{Binding Equipment.Description}" IsEnabled="{Binding IsEditing}"/>
-                <Label Text="SerialNumber"/>
-                <Entry Text="{Binding Equipment.SerialNumber}" IsEnabled="{Binding IsEditing}"/>
-                <Label Text="ISNumber"/>
-                <Entry Text="{Binding Equipment.ISNumber}" />
-            </StackLayout>
-        </ScrollView>
+        <StackLayout>
+            <ScrollView>
+                <StackLayout Padding="16" >
+                    <Label Text="IDEquipment"/>
+                    <Label Text="{Binding Equipment.IDEquipment}" TextColor="Black" FontSize="Medium"/>
+                    <Label Text="PositionState"/>
+                    <Picker ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}" InputTransparent ="True"/>
+                    <Label Text="HealthState"/>
+                    <Picker ItemsSource="{Binding Healths}" SelectedItem="{Binding SelectedHealth}" InputTransparent ="{Binding IsNotEditing}"/>
+                    <Label Text="AssignedPosition"/>
+                    <Picker ItemsSource="{Binding AssignedPositions}" SelectedItem="{Binding SelectedAssignedPosition}" InputTransparent ="True"/>
+                    <Label Text="Description"/>
+                    <Editor Text="{Binding Equipment.Description}" IsEnabled="{Binding IsEditing}"/>
+                    <Label Text="SerialNumber"/>
+                    <Entry Text="{Binding Equipment.SerialNumber}" IsEnabled="{Binding IsEditing}"/>
+                    <Label Text="ISNumber"/>
+                    <Entry Text="{Binding Equipment.ISNumber}" IsEnabled="{Binding IsEditing}"/>
+                </StackLayout>
+            </ScrollView>
+            <Label BackgroundColor="{Binding MessageColor}" TextColor="White" Text="{Binding MessageText}" IsVisible="{Binding IsShowMessage}" FontSize="12" HeightRequest="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

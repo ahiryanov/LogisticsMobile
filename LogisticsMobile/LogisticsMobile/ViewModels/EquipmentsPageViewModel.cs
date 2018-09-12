@@ -11,6 +11,7 @@ namespace LogisticsMobile.ViewModels
     {
         public INavigation Navigation;
         public ICommand RefreshPullCommand { get; }
+        public ICommand AddClickCommand { protected set; get; }
 
         ServerController _ctrl = new ServerController();
         private bool _isBusy;
@@ -22,8 +23,14 @@ namespace LogisticsMobile.ViewModels
         {
             _model = model;
             RefreshPullCommand = new Command(LoadEquipments);
+            AddClickCommand = new Command(AddEquipment);
             LoadEquipments();
            // Categories = await ctrl.GetCategories();
+        }
+
+        private async void AddEquipment()
+        {
+            await Navigation.PushAsync(new EquipmentInfoPage(new Equipment() { IDModel = _model.IDModel }));
         }
 
         private async void LoadEquipments()

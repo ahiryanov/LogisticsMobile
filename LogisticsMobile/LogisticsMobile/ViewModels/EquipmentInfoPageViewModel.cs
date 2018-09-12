@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace LogisticsMobile.ViewModels
 {
@@ -16,6 +17,7 @@ namespace LogisticsMobile.ViewModels
         public ICommand SaveClickCommand { get; protected set; }
 
         private bool _isEditing = false;
+        private bool _isNewEquipment;
         private Equipment _equipment;
         private ObservableCollection<string> _positions;
         private ObservableCollection<string> _healths;
@@ -24,19 +26,97 @@ namespace LogisticsMobile.ViewModels
         private string _selectedHealth;
         private string _selectedAssignedPosition;
 
-        public EquipmentInfoPageViewModel(Equipment equipment)
+        public EquipmentInfoPageViewModel(Equipment equipment,bool isNewEquipment)
         {
             EditClickCommand = new Command(EditClick);
             SaveClickCommand = new Command(SaveClick);
+            _isNewEquipment = isNewEquipment;
             _equipment = equipment;
             LoadPositions();
             LoadHealths();
             LoadAssignedPositions();
+            if (isNewEquipment)
+            {
+                IsEditing = true;
+            }
+        }
+
+        public bool IsNewEquipment
+        {
+            get { return _isNewEquipment; }
+            set
+            {
+                if (_isNewEquipment != value)
+                {
+                    _isNewEquipment = value;
+                    OnPropertyChanged(nameof(IsNewEquipment));
+                }
+            }
         }
 
         private async void SaveClick(object obj)
         {
-            await _ctrl.Update(_equipment);
+            
+                Equipment returnedObj = await _ctrl.UpdateEquipment(_equipment);
+            
+            if (returnedObj != null)
+            {
+                MessageText = "Сохранено!";
+                MessageColor = Color.Green;
+                IsShowMessage = true;
+                await Task.Delay(3000);
+                IsShowMessage = false;
+            }
+            else
+            {
+                MessageText = "Ошибка!";
+                MessageColor = Color.Red;
+                IsShowMessage = true;
+                await Task.Delay(3000);
+                IsShowMessage = false;
+            }
+        }
+
+        private Color _messageColor;
+        public Color MessageColor
+        {
+            get { return _messageColor; }
+            set
+            {
+                if(_messageColor!=value)
+                {
+                    _messageColor = value;
+                    OnPropertyChanged(nameof(MessageColor));
+                }
+            }
+        }
+
+        private string _messageText;
+        public string MessageText
+        {
+            get { return _messageText; }
+            set
+            {
+                if (_messageText != value)
+                {
+                    _messageText = value;
+                    OnPropertyChanged(nameof(MessageText));
+                }
+            }
+        }
+
+        private bool _isShowMessage;
+        public bool IsShowMessage
+        {
+            get { return _isShowMessage; }
+            set
+            {
+                if (_isShowMessage != value)
+                {
+                    _isShowMessage = value;
+                    OnPropertyChanged(nameof(IsShowMessage));
+                }
+            }
         }
 
         private void EditClick()

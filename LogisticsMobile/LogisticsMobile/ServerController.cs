@@ -13,7 +13,8 @@ namespace LogisticsMobile
 {
     public class ServerController
     {
-        const string Url = "https://logistics.ast-telecom.ru/api/Equipments";
+        //const string Url = "https://logistics.ast-telecom.ru/api/Equipments";
+        const string Url = "http://192.168.10.10:54298/api/Equipments";
         // настройка клиента
         private HttpClient GetClient()
         {
@@ -35,7 +36,7 @@ namespace LogisticsMobile
                 string result = await client.GetStringAsync(Url + "/getpositions");
                 return JsonConvert.DeserializeObject<List<string>>(result);
             }
-            catch(Exception ex)
+            catch(WebException ex)
             {
                 return null;
             }
@@ -87,7 +88,7 @@ namespace LogisticsMobile
         public async Task<Equipment> Add(Equipment equipment)
         {
             HttpClient client = GetClient();
-            var response = await client.PostAsync(Url,
+            var response = await client.PostAsync(Url+ "/" + equipment.IDEquipment,
                 new StringContent(
                     JsonConvert.SerializeObject(equipment),
                     Encoding.UTF8, "application/json"));
@@ -99,19 +100,13 @@ namespace LogisticsMobile
                 await response.Content.ReadAsStringAsync());
         }
         // обновляем друга
-        public async Task<Equipment> Update(Equipment equipment)
+        public async Task<Equipment> UpdateEquipment(Equipment equipment)
         {
             HttpClient client = GetClient();
-            var response = await client.PutAsync(Url + "/" + equipment.IDEquipment,
-                new StringContent(
-                    JsonConvert.SerializeObject(equipment),
-                    Encoding.UTF8, "application/json"));
-
+            var response = await client.PutAsync(Url + "/" + equipment.IDEquipment, new StringContent(JsonConvert.SerializeObject(equipment), Encoding.UTF8, "application/json"));
             if (response.StatusCode != HttpStatusCode.OK)
                 return null;
-
-            return JsonConvert.DeserializeObject<Equipment>(
-                await response.Content.ReadAsStringAsync());
+            return JsonConvert.DeserializeObject<Equipment>(await response.Content.ReadAsStringAsync());
         }
         // удаляем друга
         public async Task<Equipment> Delete(int id)
