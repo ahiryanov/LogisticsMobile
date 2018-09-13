@@ -85,7 +85,7 @@ namespace LogisticsMobile
         }
 
         // добавляем одного друга
-        public async Task<Equipment> Add(Equipment equipment)
+        public async Task<Equipment> AddEquipment(Equipment equipment)
         {
             HttpClient client = GetClient();
             var response = await client.PostAsync(Url,

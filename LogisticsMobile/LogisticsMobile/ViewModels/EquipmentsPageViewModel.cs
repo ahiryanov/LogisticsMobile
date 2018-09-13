@@ -30,7 +30,7 @@ namespace LogisticsMobile.ViewModels
 
         private async void AddEquipment()
         {
-            await Navigation.PushAsync(new EquipmentInfoPage(new Equipment() { IDModel = _model.IDModel }));
+            await Navigation.PushAsync(new EquipmentInfoPage(new Equipment() { IDModel = _model.IDModel }, true));
         }
 
         private async void LoadEquipments()

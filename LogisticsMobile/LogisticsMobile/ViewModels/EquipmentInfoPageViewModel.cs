@@ -14,10 +14,11 @@ namespace LogisticsMobile.ViewModels
         ServerController _ctrl = new ServerController();
 
         public ICommand EditClickCommand { get; protected set; }
-        public ICommand SaveClickCommand { get; protected set; }
+        public ICommand SaveNewEquipmentCommand { get; protected set; }
+        public ICommand SaveExistEquipmentCommand { get; protected set; }
 
         private bool _isEditing = false;
-        private bool _isNewEquipment;
+        //private bool _isNewEquipment;
         private Equipment _equipment;
         private ObservableCollection<string> _positions;
         private ObservableCollection<string> _healths;
@@ -28,53 +29,41 @@ namespace LogisticsMobile.ViewModels
 
         public EquipmentInfoPageViewModel(Equipment equipment,bool isNewEquipment)
         {
-            EditClickCommand = new Command(EditClick);
-            SaveClickCommand = new Command(SaveClick);
-            _isNewEquipment = isNewEquipment;
             _equipment = equipment;
+            EditClickCommand = new Command(EditClick);
+            SaveNewEquipmentCommand = new Command(SaveNew);
+            SaveExistEquipmentCommand = new Command(SaveExist);
+            //_isNewEquipment = isNewEquipment;
             LoadPositions();
             LoadHealths();
             LoadAssignedPositions();
-            if (isNewEquipment)
-            {
-                IsEditing = true;
-            }
         }
 
-        public bool IsNewEquipment
+        private async void SaveExist(object obj)
         {
-            get { return _isNewEquipment; }
-            set
-            {
-                if (_isNewEquipment != value)
-                {
-                    _isNewEquipment = value;
-                    OnPropertyChanged(nameof(IsNewEquipment));
-                }
-            }
-        }
-
-        private async void SaveClick(object obj)
-        {
-            
-                Equipment returnedObj = await _ctrl.UpdateEquipment(_equipment);
-            
-            if (returnedObj != null)
-            {
-                MessageText = "Сохранено!";
-                MessageColor = Color.Green;
-                IsShowMessage = true;
-                await Task.Delay(3000);
-                IsShowMessage = false;
-            }
+            Equipment returnedObj = await _ctrl.UpdateEquipment(_equipment);
+            if (returnedObj.IDEquipment == _equipment.IDEquipment)
+                await ShowMessage("Сохранено!", Color.Green);
             else
-            {
-                MessageText = "Ошибка!";
-                MessageColor = Color.Red;
-                IsShowMessage = true;
-                await Task.Delay(3000);
-                IsShowMessage = false;
-            }
+                await ShowMessage("Ошибка!", Color.Red);
+        }
+
+        private async Task ShowMessage(string message,Color color)
+        {
+            MessageText = message;
+            MessageColor = color;
+            IsShowMessage = true;
+            await Task.Delay(3000);
+            IsShowMessage = false;
+        }
+
+        private async void SaveNew(object obj)
+        {
+            Equipment returnedObj = await _ctrl.AddEquipment(_equipment);
+            if (returnedObj != null)
+                await ShowMessage("Сохранено!", Color.Green);
+            else
+                await ShowMessage("Ошибка!", Color.Red);
         }
 
         private Color _messageColor;
