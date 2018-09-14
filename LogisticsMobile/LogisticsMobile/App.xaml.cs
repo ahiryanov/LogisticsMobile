@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogisticsMobile.ViewModels;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,10 @@ namespace LogisticsMobile
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new CategoriesPage());
+            MainPage = new LoginPage();
+            MessagingCenter.Subscribe<LoginPageViewModel>(this, "AuthentificationPassed", (sender) => {
+                    MainPage = new NavigationPage(new CategoriesPage());
+            });
         }
 
         protected override void OnStart()

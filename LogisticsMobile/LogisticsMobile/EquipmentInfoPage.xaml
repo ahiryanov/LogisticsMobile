@@ -10,11 +10,11 @@
                     <Label Text="IDEquipment"/>
                     <Label Text="{Binding Equipment.IDEquipment}" TextColor="Black" FontSize="Medium"/>
                     <Label Text="PositionState"/>
-                    <Picker ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}" InputTransparent ="True"/>
+                    <Picker x:Name="PositionPicker" ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}" InputTransparent ="True"/>
                     <Label Text="HealthState"/>
                     <Picker ItemsSource="{Binding Healths}" SelectedItem="{Binding SelectedHealth}" InputTransparent ="{Binding IsNotEditing}"/>
                     <Label Text="AssignedPosition"/>
-                    <Picker ItemsSource="{Binding AssignedPositions}" SelectedItem="{Binding SelectedAssignedPosition}" InputTransparent ="True"/>
+                    <Picker x:Name="AssignedPositionPicker" ItemsSource="{Binding AssignedPositions}" SelectedItem="{Binding SelectedAssignedPosition}" InputTransparent ="True"/>
                     <Label Text="Description"/>
                     <Editor Text="{Binding Equipment.Description}" IsEnabled="{Binding IsEditing}"/>
                     <Label Text="SerialNumber"/>
@@ -23,7 +23,7 @@
                     <Entry Text="{Binding Equipment.ISNumber}" IsEnabled="{Binding IsEditing}"/>
                 </StackLayout>
             </ScrollView>
-            <Label BackgroundColor="{Binding MessageColor}" TextColor="White" Text="{Binding MessageText}" IsVisible="{Binding IsShowMessage}" FontSize="12" HeightRequest="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

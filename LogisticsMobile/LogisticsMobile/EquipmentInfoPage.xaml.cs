@@ -12,11 +12,12 @@ namespace LogisticsMobile
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class EquipmentInfoPage : ContentPage
 	{
-		public EquipmentInfoPage (Equipment equipment, bool isNewEquipment)
+        bool exist = false;
+        public EquipmentInfoPage (Equipment equipment, bool isNewEquipment)
 		{
 			InitializeComponent ();
 
-            EquipmentInfoPageViewModel viewmodel = new EquipmentInfoPageViewModel(equipment, isNewEquipment);
+            EquipmentInfoPageViewModel viewmodel = new EquipmentInfoPageViewModel(equipment, isNewEquipment) { Navigation = this.Navigation };
 
             if (isNewEquipment)
             {
@@ -25,20 +26,28 @@ namespace LogisticsMobile
                 ToolbarItems.Add(saveNewToolbarItem);
 
                 viewmodel.IsEditing = true;
+                PositionPicker.InputTransparent = false;
+                AssignedPositionPicker.InputTransparent = false;
             }
             else
             {
-                var saveExistToolbarItem = new ToolbarItem() { Text = "Save" };
-                saveExistToolbarItem.SetBinding(ToolbarItem.CommandProperty, new Binding("SaveExistEquipmentCommand"));
                 var EditToolbarItem = new ToolbarItem() { Text = "Edit" };
                 EditToolbarItem.SetBinding(ToolbarItem.CommandProperty, new Binding("EditClickCommand"));
-
-                ToolbarItems.Add(saveExistToolbarItem);
+                EditToolbarItem.Clicked += EditItem_Clicked;
                 ToolbarItems.Add(EditToolbarItem);
             }
-
-            
             BindingContext = viewmodel;
         }
-	}
+
+        private void EditItem_Clicked(object sender, EventArgs e)
+        {
+            if (!exist)
+            {
+                var saveExistToolbarItem = new ToolbarItem() { Text = "Save" };
+                saveExistToolbarItem.SetBinding(ToolbarItem.CommandProperty, new Binding("SaveExistEquipmentCommand"));
+                ToolbarItems.Insert(0,saveExistToolbarItem);
+                exist = true;
+            }
+        }
+    }
 }

@@ -2,14 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LogisticsMobile.EquipmentsPage"
-             Title="Оборудование">
-    
+             Title="Оборудование"
+             x:Name="EquipmentsPageQ">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddEquipmentCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding Equipments}" SelectedItem="{Binding SelectedEquipment,Mode=TwoWay}" RowHeight="64" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshPullCommand}" IsRefreshing="{Binding IsBusy}">
+            <ListView ItemsSource="{Binding Equipments}" SelectedItem="{Binding SelectedEquipment,Mode=TwoWay}" RowHeight="64" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshPullCommand}" ItemSelected="ListView_ItemSelected" VerticalOptions="FillAndExpand">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Удалить" Command="{Binding Path=BindingContext.DeleteEquipmentCommand, Source={x:Reference EquipmentsPageQ}}" CommandParameter="{Binding}" />
+                            </ViewCell.ContextActions>
                             <StackLayout Padding="16,8,16,8">
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                     <Label Text="{Binding PositionState}" TextColor="Black" FontSize="16" />
@@ -23,6 +29,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Label BackgroundColor="{Binding MessageColor}" TextColor="White" Text="{Binding MessageText}" IsVisible="{Binding IsShowMessage}" FontSize="12" HeightRequest="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

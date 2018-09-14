@@ -19,5 +19,10 @@ namespace LogisticsMobile
             EquipmentsPageViewModel epvm = new EquipmentsPageViewModel(model) { Navigation = this.Navigation };
             BindingContext = epvm;
 		}
+
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            (sender as ListView).SelectedItem = null;
+        }
     }
 }

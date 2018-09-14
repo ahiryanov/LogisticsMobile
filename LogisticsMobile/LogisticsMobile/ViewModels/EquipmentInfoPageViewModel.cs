@@ -11,11 +11,21 @@ namespace LogisticsMobile.ViewModels
 {
     class EquipmentInfoPageViewModel : INotifyPropertyChanged
     {
+        public event EventHandler SaveNewSuccess;
+        public event EventHandler SaveExistSuccess;
+        public event EventHandler SaveError;
+        private void OnSaveNewSucces() => SaveNewSuccess?.Invoke(this, EventArgs.Empty);
+        private void OnSaveExistSucces() => SaveExistSuccess?.Invoke(this, EventArgs.Empty);
+        private void OnSaveError() => SaveError?.Invoke(this, EventArgs.Empty);
+
+        public INavigation Navigation { get; set; }
         ServerController _ctrl = new ServerController();
 
         public ICommand EditClickCommand { get; protected set; }
         public ICommand SaveNewEquipmentCommand { get; protected set; }
         public ICommand SaveExistEquipmentCommand { get; protected set; }
+
+        
 
         private bool _isEditing = false;
         //private bool _isNewEquipment;
@@ -23,9 +33,6 @@ namespace LogisticsMobile.ViewModels
         private ObservableCollection<string> _positions;
         private ObservableCollection<string> _healths;
         private ObservableCollection<string> _assignedPositions;
-        private string _selectedPosition;
-        private string _selectedHealth;
-        private string _selectedAssignedPosition;
 
         public EquipmentInfoPageViewModel(Equipment equipment,bool isNewEquipment)
         {
@@ -43,69 +50,27 @@ namespace LogisticsMobile.ViewModels
         {
             Equipment returnedObj = await _ctrl.UpdateEquipment(_equipment);
             if (returnedObj.IDEquipment == _equipment.IDEquipment)
-                await ShowMessage("Сохранено!", Color.Green);
+            {
+                MessagingCenter.Send(this, "EquipmentsInfoPage", "SaveExist");
+                await Navigation.PopAsync();
+            }
             else
-                await ShowMessage("Ошибка!", Color.Red);
+                MessagingCenter.Send(this, "EquipmentsInfoPage", "SaveError");
         }
 
-        private async Task ShowMessage(string message,Color color)
-        {
-            MessageText = message;
-            MessageColor = color;
-            IsShowMessage = true;
-            await Task.Delay(3000);
-            IsShowMessage = false;
-        }
+        
 
         private async void SaveNew(object obj)
         {
             Equipment returnedObj = await _ctrl.AddEquipment(_equipment);
             if (returnedObj != null)
-                await ShowMessage("Сохранено!", Color.Green);
+            {
+                _equipment = returnedObj;
+                OnSaveNewSucces();
+                await Navigation.PopAsync();
+            }
             else
-                await ShowMessage("Ошибка!", Color.Red);
-        }
-
-        private Color _messageColor;
-        public Color MessageColor
-        {
-            get { return _messageColor; }
-            set
-            {
-                if(_messageColor!=value)
-                {
-                    _messageColor = value;
-                    OnPropertyChanged(nameof(MessageColor));
-                }
-            }
-        }
-
-        private string _messageText;
-        public string MessageText
-        {
-            get { return _messageText; }
-            set
-            {
-                if (_messageText != value)
-                {
-                    _messageText = value;
-                    OnPropertyChanged(nameof(MessageText));
-                }
-            }
-        }
-
-        private bool _isShowMessage;
-        public bool IsShowMessage
-        {
-            get { return _isShowMessage; }
-            set
-            {
-                if (_isShowMessage != value)
-                {
-                    _isShowMessage = value;
-                    OnPropertyChanged(nameof(IsShowMessage));
-                }
-            }
+                OnSaveError();
         }
 
         private void EditClick()
@@ -116,19 +81,18 @@ namespace LogisticsMobile.ViewModels
         private async void LoadPositions()
         {
             Positions = new ObservableCollection<string>(await _ctrl.GetPositions());
-            SelectedPosition = _equipment.PositionState;
+            OnPropertyChanged(nameof(SelectedPosition));;
         }
 
         private async void LoadHealths()
         {
             Healths = new ObservableCollection<string>(await _ctrl.GetHealths());
-            SelectedHealth = _equipment.HealthState;
+            OnPropertyChanged(nameof(SelectedHealth));
         }
 
         private void LoadAssignedPositions()
         {
             AssignedPositions = new ObservableCollection<string>(GlobalVariables.AssignedPositions);
-            SelectedAssignedPosition = _equipment.AssignedPosition;
         }
 
         public bool IsEditing
@@ -144,10 +108,12 @@ namespace LogisticsMobile.ViewModels
                 }
             }
         }
+
         public bool IsNotEditing
         {
             get { return !_isEditing; }
         }
+
         public Equipment Equipment
         {
             get { return _equipment; }
@@ -200,12 +166,12 @@ namespace LogisticsMobile.ViewModels
 
         public string SelectedPosition
         {
-            get { return _selectedPosition; }
+            get { return _equipment.PositionState; }
             set
             {
-                if (_selectedPosition != value)
+                if (_equipment.PositionState != value && value != null)
                 {
-                    _selectedPosition = value;
+                    _equipment.PositionState = value;
                     OnPropertyChanged(nameof(SelectedPosition));
                 }
             }
@@ -213,12 +179,12 @@ namespace LogisticsMobile.ViewModels
 
         public string SelectedHealth
         {
-            get { return _selectedHealth; }
+            get { return _equipment.HealthState; }
             set
             {
-                if (_selectedHealth != value)
+                if (_equipment.HealthState != value && value != null)
                 {
-                    _selectedHealth = value;
+                    _equipment.HealthState = value;
                     OnPropertyChanged(nameof(SelectedHealth));
                 }
             }
@@ -226,12 +192,12 @@ namespace LogisticsMobile.ViewModels
 
         public string SelectedAssignedPosition
         {
-            get { return _selectedAssignedPosition; }
+            get { return _equipment.AssignedPosition; }
             set
             {
-                if (_selectedAssignedPosition != value)
+                if (_equipment.AssignedPosition != value && value != null)
                 {
-                    _selectedAssignedPosition = value;
+                    _equipment.AssignedPosition = value;
                     OnPropertyChanged(nameof(SelectedAssignedPosition));
                 }
             }

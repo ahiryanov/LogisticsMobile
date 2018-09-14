@@ -13,8 +13,9 @@ namespace LogisticsMobile
 {
     public class ServerController
     {
-        //const string Url = "https://logistics.ast-telecom.ru/api/Equipments";
-        const string Url = "http://192.168.10.10:54298/api/Equipments";
+        const string Url = "https://logistics.ast-telecom.ru/api/Equipments";
+        const string AuthUrl = "https://logistics.ast-telecom.ru/api/Auth";
+        //const string Url = "http://192.168.10.10:54298/api/Equipments";
         // настройка клиента
         private HttpClient GetClient()
         {
@@ -109,7 +110,7 @@ namespace LogisticsMobile
             return JsonConvert.DeserializeObject<Equipment>(await response.Content.ReadAsStringAsync());
         }
         // удаляем друга
-        public async Task<Equipment> Delete(int id)
+        public async Task<Equipment> DeleteEquipment(int id)
         {
             HttpClient client = GetClient();
             var response = await client.DeleteAsync(Url + "/" + id);
@@ -118,6 +119,21 @@ namespace LogisticsMobile
 
             return JsonConvert.DeserializeObject<Equipment>(
                await response.Content.ReadAsStringAsync());
+        }
+
+        public async Task<Manager> AuthUser(Manager user)
+        {
+            HttpClient client = GetClient();
+            var response = await client.PostAsync(AuthUrl,
+                new StringContent(
+                    JsonConvert.SerializeObject(user),
+                    Encoding.UTF8, "application/json"));
+
+            if (response.StatusCode != HttpStatusCode.OK)
+                return null;
+
+            return JsonConvert.DeserializeObject<Manager>(
+                await response.Content.ReadAsStringAsync());
         }
     }
 }
