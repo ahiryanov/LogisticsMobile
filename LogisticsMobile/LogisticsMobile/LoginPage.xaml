@@ -4,20 +4,20 @@
              x:Class="LogisticsMobile.LoginPage">
     <ContentPage.Content>
         <StackLayout Padding="15">
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" Margin="0,200,0,0">
                 <Label Text="Фамилия" HorizontalOptions="StartAndExpand"/>
-                <Entry Placeholder="напр.Иванов" Text="{Binding Family}" WidthRequest="100"/>
+                <Entry Placeholder="напр.Иванов" Text="{Binding Family}" WidthRequest="200"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Имя" HorizontalOptions="StartAndExpand"/>
-                <Entry Placeholder="напр.Иван" Text="{Binding Name}" WidthRequest="100"/>
+                <Entry Placeholder="напр.Иван" Text="{Binding Name}" WidthRequest="200"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Пароль" HorizontalOptions="StartAndExpand"/>
-                <Entry IsPassword="True" Text="{Binding Password}" WidthRequest="100"/>
+                <Entry IsPassword="True" Text="{Binding Password}" WidthRequest="200"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="сохранить данные для входа" HorizontalOptions="StartAndExpand"/>
+                <Label Text="Оставаться в программе" HorizontalOptions="StartAndExpand"/>
                 <Switch IsToggled="{Binding IsStayLogin}" />
             </StackLayout>
             <Button Text="Нажать" Command="{Binding LoginButtonCommand}" />

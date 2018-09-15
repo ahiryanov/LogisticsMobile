@@ -45,11 +45,14 @@ namespace LogisticsMobile.ViewModels
 
         private async void DeleteEquipment(object obj)
         {
-            var returnedObj = await _ctrl.DeleteEquipment((obj as Equipment).IDEquipment);
-            if (returnedObj != null)
+            if (obj != null)
             {
-                Equipments.Remove(obj as Equipment);
-                ShowMessage("Удалено!", Color.Green);
+                var returnedObj = await _ctrl.DeleteEquipment((obj as Equipment).IDEquipment);
+                if (returnedObj != null)
+                {
+                    Equipments.Remove(obj as Equipment);
+                    ShowMessage("Удалено!", Color.Green);
+                }
             }
         }
 
