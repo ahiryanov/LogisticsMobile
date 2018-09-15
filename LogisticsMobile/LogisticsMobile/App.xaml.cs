@@ -11,9 +11,13 @@ namespace LogisticsMobile
         public App()
         {
             InitializeComponent();
+
             MainPage = new LoginPage();
             MessagingCenter.Subscribe<LoginPageViewModel>(this, "AuthentificationPassed", (sender) => {
-                    MainPage = new NavigationPage(new CategoriesPage());
+                    MainPage = new NavigationPage(new MainPage());
+            });
+            MessagingCenter.Subscribe<MainPageMaster>(this, "Logout", (sender) => {
+                MainPage = new LoginPage();
             });
         }
 
