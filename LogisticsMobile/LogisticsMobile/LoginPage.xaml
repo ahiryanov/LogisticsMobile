@@ -1,26 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LogisticsMobile.LoginPage">
-    <ContentPage.Content>
-        <StackLayout Padding="15">
-            <StackLayout Orientation="Horizontal" Margin="0,200,0,0">
-                <Label Text="Фамилия" HorizontalOptions="StartAndExpand"/>
-                <Entry Placeholder="напр.Иванов" Text="{Binding Family}" WidthRequest="200"/>
+             x:Class="LogisticsMobile.LoginPage"
+             xmlns:stateContainer="clr-namespace:Xamarin.Forms.Essentials.Controls">
+    <stateContainer:StateContainer State="{Binding State}">
+        
+        <stateContainer:StateCondition State="Login">
+            <StackLayout Padding="15">
+                <StackLayout Orientation="Horizontal" Margin="0,200,0,0">
+                    <Label Text="Фамилия" HorizontalOptions="StartAndExpand"/>
+                    <Entry Placeholder="напр.Иванов" Text="{Binding Family}" WidthRequest="200"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Имя" HorizontalOptions="StartAndExpand"/>
+                    <Entry Placeholder="напр.Иван" Text="{Binding Name}" WidthRequest="200"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Пароль" HorizontalOptions="StartAndExpand"/>
+                    <Entry IsPassword="True" Text="{Binding Password}" WidthRequest="200"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Оставаться в программе" HorizontalOptions="StartAndExpand"/>
+                    <Switch IsToggled="{Binding IsStayLogin}" />
+                </StackLayout>
+                <Button Text="Нажать" Command="{Binding LoginButtonCommand}" />
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Имя" HorizontalOptions="StartAndExpand"/>
-                <Entry Placeholder="напр.Иван" Text="{Binding Name}" WidthRequest="200"/>
+        </stateContainer:StateCondition>
+
+        <stateContainer:StateCondition State="Loading">
+            <StackLayout>
+                <Label Text="Подключение к базе" HorizontalOptions="Center" />
+                <ActivityIndicator IsRunning="True" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Пароль" HorizontalOptions="StartAndExpand"/>
-                <Entry IsPassword="True" Text="{Binding Password}" WidthRequest="200"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Оставаться в программе" HorizontalOptions="StartAndExpand"/>
-                <Switch IsToggled="{Binding IsStayLogin}" />
-            </StackLayout>
-            <Button Text="Нажать" Command="{Binding LoginButtonCommand}" />
-        </StackLayout>
-    </ContentPage.Content>
+        </stateContainer:StateCondition>
+
+        <stateContainer:StateCondition State="AuthentificationFailed">
+            <Frame HorizontalOptions="Center" VerticalOptions="Center">
+                <StackLayout>
+                    <Label Text="Неверные данные" HorizontalOptions="Center" TextColor="Black"/>
+                    <Button Text="Повторить" Command="{Binding ReturnLoginViewCommand}" />
+                </StackLayout>
+            </Frame>
+        </stateContainer:StateCondition>
+
+    </stateContainer:StateContainer>
 </ContentPage>

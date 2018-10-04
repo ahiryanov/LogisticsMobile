@@ -16,9 +16,9 @@ namespace LogisticsMobile
 		{
 			InitializeComponent ();
             BindingContext = new LoginPageViewModel();
-            MessagingCenter.Subscribe<LoginPageViewModel>(this,"AuthentificationFailed", (sender) => {
-                    DisplayAlert("Ошибка", "Не пройдёшь", "ОК");
-            });
+         //   MessagingCenter.Subscribe<LoginPageViewModel>(this,"AuthentificationFailed", (sender) => {
+          //          DisplayAlert("Ошибка", "Не пройдёшь", "ОК");
+           // });
         }
 	}
 }
