@@ -6,8 +6,10 @@
     <stateContainer:StateContainer State="{Binding State}">
         
         <stateContainer:StateCondition State="Login">
-            <StackLayout Padding="15">
-                <StackLayout Orientation="Horizontal" Margin="0,200,0,0">
+            
+            <StackLayout Padding="15" BackgroundColor="WhiteSmoke">
+              <Image x:Name="logo" Margin="0,50,0,50"/>
+                <StackLayout Orientation="Horizontal" >
                     <Label Text="Фамилия" HorizontalOptions="StartAndExpand"/>
                     <Entry Placeholder="напр.Иванов" Text="{Binding Family}" WidthRequest="200"/>
                 </StackLayout>
@@ -23,7 +25,7 @@
                     <Label Text="Оставаться в программе" HorizontalOptions="StartAndExpand"/>
                     <Switch IsToggled="{Binding IsStayLogin}" />
                 </StackLayout>
-                <Button Text="Нажать" Command="{Binding LoginButtonCommand}" />
+                <Button Text="Нажать" Command="{Binding LoginButtonCommand}" BackgroundColor="White"/>
             </StackLayout>
         </stateContainer:StateCondition>
 

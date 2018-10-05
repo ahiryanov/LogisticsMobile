@@ -37,7 +37,7 @@ namespace LogisticsMobile
                 string result = await client.GetStringAsync(Url + "/getpositions");
                 return JsonConvert.DeserializeObject<List<string>>(result);
             }
-            catch(WebException ex)
+            catch
             {
                 return null;
             }

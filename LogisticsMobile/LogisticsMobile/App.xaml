@@ -9,7 +9,10 @@
             <Style TargetType="ListView">
                 <!--   <Setter Property="SeparatorVisibility" Value="True" />-->
             </Style>
-            
+            <Style TargetType="Label">
+                <!--   <Setter Property="SeparatorVisibility" Value="True" />-->
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

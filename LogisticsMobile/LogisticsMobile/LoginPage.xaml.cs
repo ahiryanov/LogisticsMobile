@@ -16,6 +16,8 @@ namespace LogisticsMobile
 		{
 			InitializeComponent ();
             BindingContext = new LoginPageViewModel();
+
+            logo.Source = ImageSource.FromResource("LogisticsMobile.Images.astlogo_big.png");
          //   MessagingCenter.Subscribe<LoginPageViewModel>(this,"AuthentificationFailed", (sender) => {
           //          DisplayAlert("Ошибка", "Не пройдёшь", "ОК");
            // });

@@ -9,43 +9,45 @@ namespace LogisticsMobile.ViewModels
 {
     public class LoginPageViewModel : INotifyPropertyChanged
     {
+        private enum States {
+            Login,
+            AuthentificationFailed,
+            Loading }
         public ICommand LoginButtonCommand { get; protected set; }
         public ICommand ReturnLoginViewCommand { get; protected set; }
         private ServerController _ctrl = new ServerController();
         public LoginPageViewModel()
         {
-            LoginButtonCommand = new Command(LoginButton);
-            ReturnLoginViewCommand = new Command(() => State = "Login");
+            LoginButtonCommand = new Command(LoginAction);
+            ReturnLoginViewCommand = new Command(() => State = States.Login.ToString());
             if (CheckCredentials())
             {
                 var authUser = new Manager();
-                authUser.family = CrossSettings.Current.GetValueOrDefault("Family", null);
-                authUser.name = CrossSettings.Current.GetValueOrDefault("Name", null);
-                authUser.password = CrossSettings.Current.GetValueOrDefault("Password", null);
-                CheckAuth(authUser);
+                Family = CrossSettings.Current.GetValueOrDefault("Family", null);
+                Name = CrossSettings.Current.GetValueOrDefault("Name", null);
+                Password = CrossSettings.Current.GetValueOrDefault("Password", null);
+                LoginAction();
             }
         }
 
-        private async void LoginButton()
+        private async void LoginAction()
         {
             var authUser = new Manager();
             authUser.family = Family;
             authUser.name = Name;
             authUser.password = Password;
-
-            State = "Loading";
-            Thread.Sleep(3000);
             var checkResult = await CheckAuth(authUser);
-            State = "Login";
             if (checkResult)
                 MessagingCenter.Send(this, "AuthentificationPassed");
             else
-                State = "AuthentificationFailed";
+                State = States.AuthentificationFailed.ToString();
         }
 
         private async Task<bool> CheckAuth(Manager authUser)
         {
+            State = States.Loading.ToString(); ;
             var validUser = await _ctrl.AuthUser(authUser);
+            State = States.Login.ToString();
             if (validUser != null)
             {
                 if (IsStayLogin)
@@ -63,11 +65,11 @@ namespace LogisticsMobile.ViewModels
         public string Name { get; set; }
         public string Password { get; set; }
         public bool IsStayLogin { get; set; }
-        public string State { get; set; } = "Login";
+        public string State { get; set; } = States.Login.ToString();
 
         private bool CheckCredentials()
         {
-            return CrossSettings.Current.Contains("User") && CrossSettings.Current.Contains("Family") && CrossSettings.Current.Contains("Password");
+            return CrossSettings.Current.Contains("Family") && CrossSettings.Current.Contains("Name") && CrossSettings.Current.Contains("Password");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
