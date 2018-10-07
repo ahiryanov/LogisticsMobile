@@ -6,12 +6,14 @@
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="greenColor">#004D40</Color>
+            
             <Style TargetType="ListView">
                 <!--   <Setter Property="SeparatorVisibility" Value="True" />-->
             </Style>
+            
             <Style TargetType="Label">
-                <!--   <Setter Property="SeparatorVisibility" Value="True" />-->
                 <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="Medium" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

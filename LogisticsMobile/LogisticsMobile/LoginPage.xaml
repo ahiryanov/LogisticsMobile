@@ -2,31 +2,33 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LogisticsMobile.LoginPage"
-             xmlns:stateContainer="clr-namespace:Xamarin.Forms.Essentials.Controls">
+             xmlns:stateContainer="clr-namespace:Xamarin.Forms.Essentials.Controls"
+             BackgroundColor="WhiteSmoke">
     <stateContainer:StateContainer State="{Binding State}">
         
         <stateContainer:StateCondition State="Login">
-            
-            <StackLayout Padding="15" BackgroundColor="WhiteSmoke">
-              <Image x:Name="logo" Margin="0,50,0,50"/>
-                <StackLayout Orientation="Horizontal" >
-                    <Label Text="Фамилия" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
-                    <Entry Placeholder="напр.Иванов" Text="{Binding Family}" WidthRequest="200"/>
+            <Frame VerticalOptions="CenterAndExpand" HasShadow="False" BackgroundColor="WhiteSmoke">
+                <StackLayout>
+                    <Image x:Name="logo" />
+                    <StackLayout Orientation="Horizontal" >
+                        <Label Text="Фамилия" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                        <Entry Text="{Binding Family}" WidthRequest="200"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Имя" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                        <Entry Text="{Binding Name}" WidthRequest="200"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Пароль" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                        <Entry IsPassword="True" Text="{Binding Password}" WidthRequest="200"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Padding="0,6">
+                        <Label Text="Оставаться в программе" HorizontalOptions="StartAndExpand"/>
+                        <Switch IsToggled="{Binding IsStayLogin}" />
+                    </StackLayout>
+                    <Button Text="Нажать" Command="{Binding LoginButtonCommand}" BackgroundColor="White"/>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Имя" HorizontalOptions="StartAndExpand"/>
-                    <Entry Placeholder="напр.Иван" Text="{Binding Name}" WidthRequest="200"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Пароль" HorizontalOptions="StartAndExpand"/>
-                    <Entry IsPassword="True" Text="{Binding Password}" WidthRequest="200"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Оставаться в программе" HorizontalOptions="StartAndExpand"/>
-                    <Switch IsToggled="{Binding IsStayLogin}" />
-                </StackLayout>
-                <Button Text="Нажать" Command="{Binding LoginButtonCommand}" BackgroundColor="White"/>
-            </StackLayout>
+            </Frame>
         </stateContainer:StateCondition>
 
         <stateContainer:StateCondition State="Loading">

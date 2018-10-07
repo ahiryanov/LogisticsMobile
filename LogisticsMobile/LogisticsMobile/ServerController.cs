@@ -1,5 +1,6 @@
 ﻿using LogisticsMobile;
 using Newtonsoft.Json;
+using Plugin.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +16,18 @@ namespace LogisticsMobile
     {
         const string Url = "https://logistics.ast-telecom.ru/api/Equipments";
         const string AuthUrl = "https://logistics.ast-telecom.ru/api/Auth";
-        //const string Url = "http://192.168.10.10:54298/api/Equipments";
-        // настройка клиента
-        private HttpClient GetClient()
+        private string authString;
+        public ServerController()
         {
-            
-            var authData = string.Format("{0}:{1}", APIKeys.Username, APIKeys.Password);
-            var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authData));
+            var Family = CrossSettings.Current.GetValueOrDefault("Family", null);
+            var Name = CrossSettings.Current.GetValueOrDefault("Name", null);
+            var Password = CrossSettings.Current.GetValueOrDefault("Password", null);
+
+            authString = string.Format("{0}:{1}", Family + " " + Name, Password);
+        }
+        private HttpClient GetClientWithAuth()
+        {
+            var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authString));
 
             HttpClient client = new HttpClient();
 
@@ -30,11 +36,18 @@ namespace LogisticsMobile
             return client;
         }
 
+        private HttpClient GetClientWithoutAuth()
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            return client;
+        }
+
         public async Task<List<string>> GetPositions()
         {
             try
             {
-                HttpClient client = GetClient();
+                HttpClient client = GetClientWithAuth();
                 string result = await client.GetStringAsync(Url + "/getpositions");
                 return JsonConvert.DeserializeObject<List<string>>(result);
             }
@@ -46,42 +59,42 @@ namespace LogisticsMobile
 
         public async Task<List<string>> GetHealths()
         {
-            HttpClient client = GetClient();
+            HttpClient client = GetClientWithAuth();
             string result = await client.GetStringAsync(Url + "/gethealths");
             return JsonConvert.DeserializeObject<List<string>>(result);
         }
 
         public async Task<List<string>> GetCategories()
         {
-            HttpClient client = GetClient();
-            string result = await client.GetStringAsync(Url+"/getcategories");
+            HttpClient client = GetClientWithAuth();
+            string result = await client.GetStringAsync(Url + "/getcategories");
             return JsonConvert.DeserializeObject<List<string>>(result);
         }
 
         public async Task<List<string>> GetTypes(string category)
         {
-            HttpClient client = GetClient();
+            HttpClient client = GetClientWithAuth();
             string result = await client.GetStringAsync(Url + "/" + category);
             return JsonConvert.DeserializeObject<List<string>>(result);
         }
 
         public async Task<List<ModelCount>> GetModels(string category, string type)
         {
-            HttpClient client = GetClient();
+            HttpClient client = GetClientWithAuth();
             string result = await client.GetStringAsync(Url + "/" + category + "/" + type);
             return JsonConvert.DeserializeObject<List<ModelCount>>(result);
         }
 
         public async Task<List<Equipment>> GetEquipments(Model model)
         {
-            HttpClient client = GetClient();
-            string result = await client.GetStringAsync(Url + "/" + model.Category + "/" + model.EquipmentType + "/" +model.IDModel);
+            HttpClient client = GetClientWithAuth();
+            string result = await client.GetStringAsync(Url + "/" + model.Category + "/" + model.EquipmentType + "/" + model.IDModel);
             return JsonConvert.DeserializeObject<List<Equipment>>(result);
         }
 
         public async Task<List<TransferEquipment>> GetHistory(Equipment equipment)
         {
-            HttpClient client = GetClient();
+            HttpClient client = GetClientWithAuth();
             string result = await client.GetStringAsync(Url + "/" + equipment.IDEquipment + "/history");
             return JsonConvert.DeserializeObject<List<TransferEquipment>>(result);
         }
@@ -89,7 +102,7 @@ namespace LogisticsMobile
         // добавляем одного друга
         public async Task<Equipment> AddEquipment(Equipment equipment)
         {
-            HttpClient client = GetClient();
+            HttpClient client = GetClientWithAuth();
             var response = await client.PostAsync(Url,
                 new StringContent(
                     JsonConvert.SerializeObject(equipment),
@@ -104,7 +117,7 @@ namespace LogisticsMobile
         // обновляем друга
         public async Task<Equipment> UpdateEquipment(Equipment equipment)
         {
-            HttpClient client = GetClient();
+            HttpClient client = GetClientWithAuth();
             var response = await client.PutAsync(Url + "/" + equipment.IDEquipment, new StringContent(JsonConvert.SerializeObject(equipment), Encoding.UTF8, "application/json"));
             if (response.StatusCode != HttpStatusCode.OK)
                 return null;
@@ -113,7 +126,7 @@ namespace LogisticsMobile
         // удаляем друга
         public async Task<Equipment> DeleteEquipment(int id)
         {
-            HttpClient client = GetClient();
+            HttpClient client = GetClientWithAuth();
             var response = await client.DeleteAsync(Url + "/" + id);
             if (response.StatusCode != HttpStatusCode.OK)
                 return null;
@@ -124,7 +137,7 @@ namespace LogisticsMobile
 
         public async Task<Manager> AuthUser(Manager user)
         {
-            HttpClient client = GetClient();
+            HttpClient client = GetClientWithoutAuth();
             var response = await client.PostAsync(AuthUrl,
                 new StringContent(
                     JsonConvert.SerializeObject(user),
