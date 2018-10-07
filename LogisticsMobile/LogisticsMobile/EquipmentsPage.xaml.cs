@@ -16,6 +16,7 @@ namespace LogisticsMobile
 		public EquipmentsPage (Model model)
 		{
 			InitializeComponent ();
+            Title = model.VendorName + " " + model.ModelName;
             EquipmentsPageViewModel epvm = new EquipmentsPageViewModel(model) { Navigation = this.Navigation };
             BindingContext = epvm;
 		}
