@@ -20,8 +20,7 @@ namespace Xamarin.Forms.Essentials.Controls
 
         private static async void StateChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var parent = bindable as StateContainer;
-            if (parent != null)
+            if (bindable is StateContainer parent)
                 await parent.ChooseStateProperty(newValue);
         }
 

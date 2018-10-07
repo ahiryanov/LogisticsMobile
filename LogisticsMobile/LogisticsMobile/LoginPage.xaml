@@ -10,7 +10,7 @@
             <StackLayout Padding="15" BackgroundColor="WhiteSmoke">
               <Image x:Name="logo" Margin="0,50,0,50"/>
                 <StackLayout Orientation="Horizontal" >
-                    <Label Text="Фамилия" HorizontalOptions="StartAndExpand"/>
+                    <Label Text="Фамилия" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
                     <Entry Placeholder="напр.Иванов" Text="{Binding Family}" WidthRequest="200"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">

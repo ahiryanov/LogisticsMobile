@@ -19,6 +19,7 @@ namespace LogisticsMobile
         // настройка клиента
         private HttpClient GetClient()
         {
+            
             var authData = string.Format("{0}:{1}", APIKeys.Username, APIKeys.Password);
             var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authData));
 

@@ -36,29 +36,32 @@ namespace LogisticsMobile.ViewModels
             authUser.family = Family;
             authUser.name = Name;
             authUser.password = Password;
-            var checkResult = await CheckAuth(authUser);
-            if (checkResult)
+            var validUser = await CheckAuth(authUser);
+            if (validUser != null)
+            {
+                SaveValidUser(validUser);
                 MessagingCenter.Send(this, "AuthentificationPassed");
+            }
             else
                 State = States.AuthentificationFailed.ToString();
         }
 
-        private async Task<bool> CheckAuth(Manager authUser)
+        private void SaveValidUser(Manager validUser)
         {
-            State = States.Loading.ToString(); ;
+            CrossSettings.Current.AddOrUpdateValue("Family", validUser.family);
+            CrossSettings.Current.AddOrUpdateValue("Name", validUser.name);
+            CrossSettings.Current.AddOrUpdateValue("Password", validUser.password);
+            CrossSettings.Current.AddOrUpdateValue("IsStayLogin", IsStayLogin);
+        }
+
+        private async Task<Manager> CheckAuth(Manager authUser)
+        {
+            State = States.Loading.ToString();
             var validUser = await _ctrl.AuthUser(authUser);
-            State = States.Login.ToString();
+            //State = States.Login.ToString();
             if (validUser != null)
-            {
-                if (IsStayLogin)
-                {
-                    CrossSettings.Current.AddOrUpdateValue("Family", validUser.family);
-                    CrossSettings.Current.AddOrUpdateValue("Name", validUser.name);
-                    CrossSettings.Current.AddOrUpdateValue("Password", validUser.password);
-                }
-                return true;    
-            }
-            return false;
+                return validUser;    
+            return null;
         }
 
         public string Family { get; set; }
@@ -69,7 +72,11 @@ namespace LogisticsMobile.ViewModels
 
         private bool CheckCredentials()
         {
-            return CrossSettings.Current.Contains("Family") && CrossSettings.Current.Contains("Name") && CrossSettings.Current.Contains("Password");
+            return 
+                CrossSettings.Current.Contains("Family") && 
+                CrossSettings.Current.Contains("Name") && 
+                CrossSettings.Current.Contains("Password") &&
+                CrossSettings.Current.GetValueOrDefault("IsStayLogin",false);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

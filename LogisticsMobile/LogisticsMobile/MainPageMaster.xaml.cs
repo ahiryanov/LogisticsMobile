@@ -51,6 +51,7 @@ namespace LogisticsMobile
             CrossSettings.Current.Remove("Family");
             CrossSettings.Current.Remove("Name");
             CrossSettings.Current.Remove("Password");
+            CrossSettings.Current.Remove("IsStayLogin");
             MessagingCenter.Send(this, "Logout");
         }
 
