@@ -9,17 +9,22 @@ namespace LogisticsMobile.ViewModels
 {
     public class LoginPageViewModel : INotifyPropertyChanged
     {
-        private enum States {
+        public enum States
+        {
             Login,
             AuthentificationFailed,
-            Loading }
+            Loading
+        }
         public ICommand LoginButtonCommand { get; protected set; }
         public ICommand ReturnLoginViewCommand { get; protected set; }
         private ServerController _ctrl = new ServerController();
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public LoginPageViewModel()
         {
             LoginButtonCommand = new Command(LoginAction);
-            ReturnLoginViewCommand = new Command(() => State = States.Login.ToString());
+            ReturnLoginViewCommand = new Command(() => State = States.Login);
             if (CheckCredentials())
             {
                 var authUser = new Manager();
@@ -43,7 +48,7 @@ namespace LogisticsMobile.ViewModels
                 MessagingCenter.Send(this, "AuthentificationPassed");
             }
             else
-                State = States.AuthentificationFailed.ToString();
+                State = States.AuthentificationFailed;
         }
 
         private void SaveValidUser(Manager validUser)
@@ -56,7 +61,7 @@ namespace LogisticsMobile.ViewModels
 
         private async Task<Manager> CheckAuth(Manager authUser)
         {
-            State = States.Loading.ToString();
+            State = States.Loading;
             var validUser = await _ctrl.AuthUser(authUser);
             //State = States.Login.ToString();
             if (validUser != null)
@@ -68,7 +73,7 @@ namespace LogisticsMobile.ViewModels
         public string Name { get; set; }
         public string Password { get; set; }
         public bool IsStayLogin { get; set; }
-        public string State { get; set; } = States.Login.ToString();
+        public States State { get; set; } = States.Login;
 
         private bool CheckCredentials()
         {
@@ -78,7 +83,5 @@ namespace LogisticsMobile.ViewModels
                 CrossSettings.Current.Contains("Password") &&
                 CrossSettings.Current.GetValueOrDefault("IsStayLogin",false);
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Plugin.Settings;
+using ZXing.Net.Mobile.Forms;
 
 namespace LogisticsMobile
 {
@@ -31,6 +32,7 @@ namespace LogisticsMobile
                 {
                     new MainPageMenuItem { Id = 0, Title = "Каталог", TargetType = typeof(CategoriesPage) },
                     new MainPageMenuItem { Id = 1, Title = "Настройки", TargetType = typeof(SettingsPage) },
+                    new MainPageMenuItem { Id = 2, Title = "Сканировать", TargetType = typeof(BarCodeScanPage) },
                 });
             }
             
