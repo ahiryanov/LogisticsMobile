@@ -1,52 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
+using LogisticsMobile.ViewModels;
 
 namespace LogisticsMobile
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BarCodeScanPage : ContentPage
     {
         ZXingScannerView zxing;
         ZXingDefaultOverlay overlay;
 
-        public BarCodeScanPage() 
+        public BarCodeScanPage()
         {
+            BarcodeScanPageViewModel viewmodel = new BarcodeScanPageViewModel() { Navigation = this.Navigation };
+            BindingContext = viewmodel;
             zxing = new ZXingScannerView
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
-                VerticalOptions = LayoutOptions.Center,
-               // AutomationId = "zxingScannerView",
+                VerticalOptions = LayoutOptions.FillAndExpand,
             };
-            zxing.OnScanResult += (result) =>
-                Device.BeginInvokeOnMainThread(async () => {
-
-                    // Stop analysis until we navigate away so we don't keep reading barcodes
-                    zxing.IsAnalyzing = false;
-
-                    // Show an alert
-                    await DisplayAlert("Scanned Barcode", result.Text, "OK");
-
-
-                    zxing.IsAnalyzing = true;
-                    // Navigate away
-                    // await Navigation.PopAsync();
-                });
+            zxing.SetBinding(ZXingScannerView.ScanResultCommandProperty, new Binding() { Source = viewmodel, Path = "ScanResultCommand" });
 
             overlay = new ZXingDefaultOverlay
             {
-                TopText = "Hold your phone up to the barcode",
-                BottomText = "Scanning will happen automatically",
-                ShowFlashButton = zxing.HasTorch,
-              //  AutomationId = "zxingDefaultOverlay",
+                BottomText = "Наведите камеру на штрих-код",
+                ShowFlashButton = true,
             };
-            overlay.FlashButtonClicked += (sender, e) => {
+            overlay.FlashButtonClicked += (sender, e) =>
+            {
                 zxing.IsTorchOn = !zxing.IsTorchOn;
             };
             var grid = new Grid
@@ -56,23 +36,21 @@ namespace LogisticsMobile
             };
             grid.Children.Add(zxing);
             grid.Children.Add(overlay);
-
-            // The root page of your application
             Content = grid;
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
+        //   protected override void OnAppearing()
+        //   {
+        //       base.OnAppearing();
 
-            zxing.IsScanning = true;
-        }
+        //       zxing.IsScanning = true;
+        //   }
 
-        protected override void OnDisappearing()
-        {
-            zxing.IsScanning = false;
+        //   protected override void OnDisappearing()
+        //  {
+        //      zxing.IsScanning = false;
 
-            base.OnDisappearing();
-        }
+        //      base.OnDisappearing();
+        //   }
     }
 }

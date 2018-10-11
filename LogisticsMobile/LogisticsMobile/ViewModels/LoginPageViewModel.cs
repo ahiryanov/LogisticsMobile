@@ -31,6 +31,7 @@ namespace LogisticsMobile.ViewModels
                 Family = CrossSettings.Current.GetValueOrDefault("Family", null);
                 Name = CrossSettings.Current.GetValueOrDefault("Name", null);
                 Password = CrossSettings.Current.GetValueOrDefault("Password", null);
+                IsStayLogin = true;
                 LoginAction();
             }
         }
