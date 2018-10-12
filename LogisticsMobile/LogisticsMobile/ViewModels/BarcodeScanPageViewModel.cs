@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -8,49 +9,38 @@ namespace LogisticsMobile.ViewModels
     public class BarcodeScanPageViewModel :INotifyPropertyChanged
     {
         public INavigation Navigation { get; set; }
-        
-        // public ICommand ScanResultCommand { get; protected set; }
-        //public ICommand FlashCommand { get; set; }
-        public BarcodeScanPageViewModel()
-        {
-            //ScanResultCommand = new Command(QRScanResultCommand);
-        }
+        private ServerController _ctrl = new ServerController();
 
-
-        public Command QRScanResultCommand
+        public ICommand QRScanResultCommand
         {
             get
             {
-                return new Command(() =>
+                return new Command(async () =>
                 {
                     IsAnalyzing = false;
-                    IsScanning = false;
-
+                    List<Equipment> searchedList;
+                    searchedList = await _ctrl.GetEquipment(Result.Text);
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        // Barcode = Result.Text;
-                        
-                        await Application.Current.MainPage.DisplayAlert("Alert", Result.Text, "OK");
-                        IsTorchOn = !IsTorchOn;
+                        if (searchedList?.Count == 1)
+                        {
+                            var equipmentPage = new EquipmentInfoPage(searchedList[0], false);
+                            equipmentPage.Disappearing += EquipmentPage_Disappearing;
+                            await Navigation.PushAsync(equipmentPage);
+                        }
                     });
-
-                    IsAnalyzing = true;
-                    IsScanning = true;
+                    
                 });
             }
         }
-        /*
-        private async void ScanResult(object obj)
-        {
-            ZXing.Result result = obj as ZXing.Result;
-            IsAnalyzing = false;
-            await Application.Current.MainPage.DisplayAlert("Alert", result.Text, "OK");
-            IsAnalyzing = true;
-        }*/
-        public bool IsTorchOn { get; set; }
-        
-        public bool IsScanning { get; set; } = true;
 
+        private void EquipmentPage_Disappearing(object sender, EventArgs e)
+        {
+            IsAnalyzing = true;
+        }
+
+        public bool IsTorchOn { get; set; }
+        public bool IsScanning { get; set; } = true;
         public bool IsAnalyzing { get; set; } = true;
         public ZXing.Result Result { get; set; }
 

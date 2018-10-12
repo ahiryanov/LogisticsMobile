@@ -17,7 +17,6 @@ namespace LogisticsMobile
         public MainPageMaster()
         {
             InitializeComponent();
-
             BindingContext = new MainPageMasterViewModel();
             ListView = MenuItemsListView;
         }
@@ -61,10 +60,6 @@ namespace LogisticsMobile
 
     public class MainPageMenuItem
     {
-        //   public MainPageMenuItem()
-        //    {
-        //      TargetType = typeof(MainPageDetail);
-        //   }
         public int Id { get; set; }
         public string Title { get; set; }
         public Type TargetType { get; set; }

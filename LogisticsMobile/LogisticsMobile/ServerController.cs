@@ -25,6 +25,8 @@ namespace LogisticsMobile
 
             authString = string.Format("{0}:{1}", Family + " " + Name, Password);
         }
+
+        //http клиент для всех запросов, кроме authentification
         private HttpClient GetClientWithAuth()
         {
             var authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authString));
@@ -35,7 +37,7 @@ namespace LogisticsMobile
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             return client;
         }
-
+        //http для authentification (без данных для аутентификации)
         private HttpClient GetClientWithoutAuth()
         {
             HttpClient client = new HttpClient();
@@ -92,6 +94,13 @@ namespace LogisticsMobile
             return JsonConvert.DeserializeObject<List<Equipment>>(result);
         }
 
+        public async Task<List<Equipment>> GetEquipment(string idOrSerial)
+        {
+            HttpClient client = GetClientWithAuth();
+            string result = await client.GetStringAsync(Url + "/search/isnOrSerial/" + idOrSerial);
+            return JsonConvert.DeserializeObject<List<Equipment>>(result);
+        }
+
         public async Task<List<TransferEquipment>> GetHistory(Equipment equipment)
         {
             HttpClient client = GetClientWithAuth();
@@ -99,7 +108,7 @@ namespace LogisticsMobile
             return JsonConvert.DeserializeObject<List<TransferEquipment>>(result);
         }
 
-        // добавляем одного друга
+        // 
         public async Task<Equipment> AddEquipment(Equipment equipment)
         {
             HttpClient client = GetClientWithAuth();
@@ -114,7 +123,7 @@ namespace LogisticsMobile
             return JsonConvert.DeserializeObject<Equipment>(
                 await response.Content.ReadAsStringAsync());
         }
-        // обновляем друга
+        // 
         public async Task<Equipment> UpdateEquipment(Equipment equipment)
         {
             HttpClient client = GetClientWithAuth();
@@ -123,7 +132,7 @@ namespace LogisticsMobile
                 return null;
             return JsonConvert.DeserializeObject<Equipment>(await response.Content.ReadAsStringAsync());
         }
-        // удаляем друга
+        // 
         public async Task<Equipment> DeleteEquipment(int id)
         {
             HttpClient client = GetClientWithAuth();
