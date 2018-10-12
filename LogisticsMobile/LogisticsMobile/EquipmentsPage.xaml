@@ -28,7 +28,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Label BackgroundColor="{Binding MessageColor}" TextColor="White" Text="{Binding MessageText}" IsVisible="{Binding IsShowMessage}" FontSize="12" HeightRequest="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            <Label BackgroundColor="{Binding MessageColor}" TextColor="White" Text="{Binding MessageText}" IsVisible="{Binding IsShowMessage}" FontSize="Small" HeightRequest="25" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

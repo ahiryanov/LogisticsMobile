@@ -3,5 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
              x:Class="LogisticsMobile.BarCodeScanPage">
-    
+    <Grid>
+        <forms:ZXingScannerView WidthRequest="100" HeightRequest="100" IsScanning="{Binding IsScanning}" IsAnalyzing="{Binding IsAnalyzing}" Result="{Binding Result, Mode=TwoWay}" ScanResultCommand="{Binding QRScanResultCommand}" IsTorchOn="{Binding IsTorchOn}"/>
+        <forms:ZXingDefaultOverlay x:Name="scannerOverlay" BottomText="Scanning will happen automatically" ShowFlashButton="True" FlashButtonClicked = "ScannerOverlay_FlashButtonClicked"/>
+    </Grid>
 </ContentPage>
