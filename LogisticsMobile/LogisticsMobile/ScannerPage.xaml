@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             x:Class="LogisticsMobile.ScannerPage"
+                        Title="Full screen" >
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        
+        <zxing:ZXingScannerView x:Name="zxing"  Grid.RowSpan="2" HorizontalOptions="Center" WidthRequest="350" Grid.Row="0" OnScanResult="Handle_OnScanResult" IsScanning="true"/>
+        <ListView VerticalOptions="FillAndExpand" Grid.Row="1" BackgroundColor="Azure" />
+        <Button Text="нажать" Grid.Row="1" VerticalOptions="End" HorizontalOptions="End" Clicked="Button_Clicked" />
+
+    </Grid>
+</ContentPage>

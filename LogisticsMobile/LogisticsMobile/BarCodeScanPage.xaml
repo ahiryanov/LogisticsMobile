@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-             x:Class="LogisticsMobile.BarCodeScanPage" Appearing="ContentPage_Appearing" >
-    <Grid x:Name="grid">
-        <forms:ZXingScannerView IsScanning="{Binding IsScanning, Mode=TwoWay}" IsAnalyzing="{Binding IsAnalyzing, Mode=TwoWay}" Result="{Binding Result, Mode=TwoWay}" ScanResultCommand="{Binding QRScanResultCommand}" IsTorchOn="{Binding IsTorchOn, Mode=TwoWay}" />
+             x:Class="LogisticsMobile.BarCodeScanPage">
+    <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <forms:ZXingScannerView  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" x:Name="zxing" IsScanning="{Binding IsScanning, Mode=TwoWay}" IsAnalyzing="{Binding IsAnalyzing, Mode=TwoWay}" Result="{Binding Result, Mode=TwoWay}" ScanResultCommand="{Binding QRScanResultCommand}" IsTorchOn="{Binding IsTorchOn, Mode=TwoWay}" />
         <forms:ZXingDefaultOverlay BottomText="Наведите камеру на штрих-код" ShowFlashButton="True" FlashButtonClicked = "ScannerOverlay_FlashButtonClicked" />
     </Grid>
 </ContentPage>

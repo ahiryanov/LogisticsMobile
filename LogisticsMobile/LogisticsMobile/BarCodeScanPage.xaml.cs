@@ -16,11 +16,9 @@ namespace LogisticsMobile
         {
             var viewmodel = BindingContext as BarcodeScanPageViewModel;
             viewmodel.IsTorchOn = !viewmodel.IsTorchOn;
+
+            
         }
 
-        private void ContentPage_Appearing(object sender, EventArgs e)
-        {
-            grid.HeightRequest = grid.Width * 1.4222222;
-        }
     }
 }
