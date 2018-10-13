@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
              x:Class="LogisticsMobile.BarCodeScanPage">
-    <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-        <forms:ZXingScannerView  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" x:Name="zxing" IsScanning="{Binding IsScanning, Mode=TwoWay}" IsAnalyzing="{Binding IsAnalyzing, Mode=TwoWay}" Result="{Binding Result, Mode=TwoWay}" ScanResultCommand="{Binding QRScanResultCommand}" IsTorchOn="{Binding IsTorchOn, Mode=TwoWay}" />
+    <AbsoluteLayout>
+        <forms:ZXingScannerView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="-0.2,0,1.4,1" IsScanning="{Binding IsScanning, Mode=TwoWay}" IsAnalyzing="{Binding IsAnalyzing, Mode=TwoWay}" Result="{Binding Result, Mode=TwoWay}" ScanResultCommand="{Binding QRScanResultCommand}" IsTorchOn="{Binding IsTorchOn, Mode=TwoWay}" />
         <forms:ZXingDefaultOverlay BottomText="Наведите камеру на штрих-код" ShowFlashButton="True" FlashButtonClicked = "ScannerOverlay_FlashButtonClicked" />
-    </Grid>
+    </AbsoluteLayout>
 </ContentPage>

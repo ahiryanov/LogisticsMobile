@@ -4,16 +4,9 @@
              xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
              x:Class="LogisticsMobile.ScannerPage"
                         Title="Full screen" >
-    <Grid RowSpacing="0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        
-        
-        <zxing:ZXingScannerView x:Name="zxing"  Grid.RowSpan="2" HorizontalOptions="Center" WidthRequest="350" Grid.Row="0" OnScanResult="Handle_OnScanResult" IsScanning="true"/>
-        <ListView VerticalOptions="FillAndExpand" Grid.Row="1" BackgroundColor="Azure" />
-        <Button Text="нажать" Grid.Row="1" VerticalOptions="End" HorizontalOptions="End" Clicked="Button_Clicked" />
-
-    </Grid>
+    <AbsoluteLayout>
+        <zxing:ZXingScannerView x:Name="zxing" OnScanResult="Handle_OnScanResult" IsScanning="true" AbsoluteLayout.LayoutBounds="0,0,1,0.5" AbsoluteLayout.LayoutFlags="All"/>
+        <ListView BackgroundColor="Azure" AbsoluteLayout.LayoutBounds="0,1,1,0.5" AbsoluteLayout.LayoutFlags="All"/>
+        <Button Text="нажать" Clicked="Button_Clicked" />
+    </AbsoluteLayout>
 </ContentPage>

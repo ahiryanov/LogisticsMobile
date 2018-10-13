@@ -22,14 +22,23 @@ namespace LogisticsMobile.ViewModels
                     searchedList = await _ctrl.GetEquipment(Result.Text);
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        if (searchedList?.Count == 1)
+                        switch(searchedList?.Count)
                         {
-                            var equipmentPage = new EquipmentInfoPage(searchedList[0], false);
-                            equipmentPage.Disappearing += EquipmentPage_Disappearing;
-                            await Navigation.PushAsync(equipmentPage);
+                            case 1:
+                                var equipmentPage = new OpenEquipmentPage(searchedList[0]);
+                                equipmentPage.Disappearing += EquipmentPage_Disappearing;
+                                await Navigation.PushAsync(equipmentPage);
+                                break;
+                            case 0:
+                                //предупреждение оборудование не найдено
+                                IsAnalyzing = true;
+                                break;
+                            default:
+                                //предупреждение много едениц оборудования
+                                IsAnalyzing = true;
+                                break;
                         }
                     });
-                    
                 });
             }
         }

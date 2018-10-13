@@ -16,9 +16,6 @@ namespace LogisticsMobile
         {
             var viewmodel = BindingContext as BarcodeScanPageViewModel;
             viewmodel.IsTorchOn = !viewmodel.IsTorchOn;
-
-            
         }
-
     }
 }
