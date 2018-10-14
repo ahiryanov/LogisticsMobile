@@ -19,5 +19,10 @@ namespace LogisticsMobile
             CategoryesPageViewModel cpvm = new CategoryesPageViewModel() { Navigation = this.Navigation};
             BindingContext = cpvm;
 		}
-	}
+
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            (sender as ListView).SelectedItem = null;
+        }
+    }
 }

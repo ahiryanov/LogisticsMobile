@@ -7,19 +7,31 @@
         <StackLayout>
             <ScrollView>
                 <StackLayout Padding="16" >
-                    <Label Text="IDEquipment"/>
+                    <Frame Padding="10">
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Model.Category, StringFormat='{0} '}" />
+                                <Label Text="{Binding Model.EquipmentType}" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Model.VendorName, StringFormat='{0} '}" />
+                                <Label Text="{Binding Model.ModelName}" />
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                    <Label Text="ID"/>
                     <Label Text="{Binding Equipment.IDEquipment}" TextColor="Black" FontSize="Medium"/>
-                    <Label Text="PositionState"/>
+                    <Label Text="Положение"/>
                     <Picker x:Name="PositionPicker" ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}" InputTransparent ="True"/>
-                    <Label Text="HealthState"/>
+                    <Label Text="Состояние"/>
                     <Picker ItemsSource="{Binding Healths}" SelectedItem="{Binding SelectedHealth}" InputTransparent ="{Binding IsNotEditing}"/>
-                    <Label Text="AssignedPosition"/>
+                    <Label Text="Приписка"/>
                     <Picker x:Name="AssignedPositionPicker" ItemsSource="{Binding AssignedPositions}" SelectedItem="{Binding SelectedAssignedPosition}" InputTransparent ="True"/>
-                    <Label Text="Description"/>
+                    <Label Text="Описание"/>
                     <Editor Text="{Binding Equipment.Description}" IsEnabled="{Binding IsEditing}"/>
-                    <Label Text="SerialNumber"/>
+                    <Label Text="Серийный номер"/>
                     <Entry Text="{Binding Equipment.SerialNumber}" IsEnabled="{Binding IsEditing}"/>
-                    <Label Text="ISNumber"/>
+                    <Label Text="ИСН"/>
                     <Entry Text="{Binding Equipment.ISNumber}" IsEnabled="{Binding IsEditing}"/>
                 </StackLayout>
             </ScrollView>

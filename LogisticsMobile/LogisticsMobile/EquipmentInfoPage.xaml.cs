@@ -13,6 +13,7 @@ namespace LogisticsMobile
 	public partial class EquipmentInfoPage : ContentPage
 	{
         bool exist = false;
+
         public EquipmentInfoPage (Equipment equipment, bool isNewEquipment)
 		{
 			InitializeComponent ();

@@ -5,7 +5,7 @@
              Title="История">
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding Histories}" RowHeight="64" ItemSelected="ListView_ItemSelected" IsRefreshing="{Binding IsBusy}">
+            <ListView ItemsSource="{Binding Histories}" RowHeight="64" ItemSelected="ListView_ItemSelected" IsRefreshing="{Binding IsBusy}" SelectedItem="{Binding SelectedHistory}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

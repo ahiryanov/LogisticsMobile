@@ -19,5 +19,10 @@ namespace LogisticsMobile
             TypesPageViewModel tpvm = new TypesPageViewModel(category) { Navigation = this.Navigation };
             BindingContext = tpvm;
         }
-	}
+
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            (sender as ListView).SelectedItem = null;
+        }
+    }
 }

@@ -5,7 +5,7 @@
              Title="Модель">
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel,Mode=TwoWay}" RowHeight="64" IsRefreshing="{Binding IsBusy}">
+            <ListView ItemSelected="ListView_ItemSelected" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel,Mode=TwoWay}" RowHeight="64" IsRefreshing="{Binding IsBusy}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

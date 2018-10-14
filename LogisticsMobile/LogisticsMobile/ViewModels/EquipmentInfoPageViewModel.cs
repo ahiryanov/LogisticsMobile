@@ -41,10 +41,19 @@ namespace LogisticsMobile.ViewModels
             SaveNewEquipmentCommand = new Command(SaveNew);
             SaveExistEquipmentCommand = new Command(SaveExist);
             //_isNewEquipment = isNewEquipment;
+
+            LoadModel();
             LoadPositions();
             LoadHealths();
             LoadAssignedPositions();
         }
+
+        private async void LoadModel()
+        {
+            Model = await _ctrl.GetModel(_equipment.IDModel);
+        }
+
+        public Model Model { get; set; }
 
         private async void SaveExist(object obj)
         {

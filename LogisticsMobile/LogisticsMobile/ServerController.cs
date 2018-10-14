@@ -87,6 +87,13 @@ namespace LogisticsMobile
             return JsonConvert.DeserializeObject<List<ModelCount>>(result);
         }
 
+        public async Task<Model> GetModel(int idModel)
+        {
+            HttpClient client = GetClientWithAuth();
+            string result = await client.GetStringAsync(Url + "/Model/" + idModel);
+            return JsonConvert.DeserializeObject<Model>(result);
+        }
+
         public async Task<List<Equipment>> GetEquipments(Model model)
         {
             HttpClient client = GetClientWithAuth();
@@ -158,5 +165,13 @@ namespace LogisticsMobile
             return JsonConvert.DeserializeObject<Manager>(
                 await response.Content.ReadAsStringAsync());
         }
+
+        public async Task<List<Manager>> GetAllUsers()
+        {
+            HttpClient client = GetClientWithAuth();
+            string result = await client.GetStringAsync(Url + "/Users");
+            return JsonConvert.DeserializeObject<List<Manager>>(result);
+        }
+
     }
 }
