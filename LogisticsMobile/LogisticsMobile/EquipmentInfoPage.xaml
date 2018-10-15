@@ -3,39 +3,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LogisticsMobile.EquipmentInfoPage"
              Title="Информация">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="Small" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <ScrollView>
-                <StackLayout Padding="16" >
-                    <Frame Padding="10">
-                        <StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Model.Category, StringFormat='{0} '}" />
-                                <Label Text="{Binding Model.EquipmentType}" />
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Model.VendorName, StringFormat='{0} '}" />
-                                <Label Text="{Binding Model.ModelName}" />
-                            </StackLayout>
+        <ScrollView>
+            <StackLayout Padding="16" >
+                <Frame Padding="10">
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Model.EquipmentType}" TextColor="#D09E16" FontSize="Medium" />
                         </StackLayout>
-                    </Frame>
-                    <Label Text="ID"/>
-                    <Label Text="{Binding Equipment.IDEquipment}" TextColor="Black" FontSize="Medium"/>
-                    <Label Text="Положение"/>
-                    <Picker x:Name="PositionPicker" ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}" InputTransparent ="True"/>
-                    <Label Text="Состояние"/>
-                    <Picker ItemsSource="{Binding Healths}" SelectedItem="{Binding SelectedHealth}" InputTransparent ="{Binding IsNotEditing}"/>
-                    <Label Text="Приписка"/>
-                    <Picker x:Name="AssignedPositionPicker" ItemsSource="{Binding AssignedPositions}" SelectedItem="{Binding SelectedAssignedPosition}" InputTransparent ="True"/>
-                    <Label Text="Описание"/>
-                    <Editor Text="{Binding Equipment.Description}" IsEnabled="{Binding IsEditing}"/>
-                    <Label Text="Серийный номер"/>
-                    <Entry Text="{Binding Equipment.SerialNumber}" IsEnabled="{Binding IsEditing}"/>
-                    <Label Text="ИСН"/>
-                    <Entry Text="{Binding Equipment.ISNumber}" IsEnabled="{Binding IsEditing}"/>
-                </StackLayout>
-            </ScrollView>
-            
-        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Model.VendorName, StringFormat='{0} '}" FontSize="Medium" />
+                            <Label Text="{Binding Model.ModelName}" FontSize="Medium" />
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="10">
+                    <StackLayout>
+                    <!--<Label Text="ID"/>
+                        <Label Text="{Binding Equipment.IDEquipment}" TextColor="Black" FontSize="Medium"/> -->
+                        <Label Text="Положение"/>
+                        <Picker x:Name="PositionPicker" ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}" InputTransparent ="True"/>
+                        <Label Text="Состояние"/>
+                        <Picker ItemsSource="{Binding Healths}" SelectedItem="{Binding SelectedHealth}" InputTransparent ="{Binding IsNotEditing}"/>
+                        <Label Text="Приписка"/>
+                        <Picker x:Name="AssignedPositionPicker" ItemsSource="{Binding AssignedPositions}" SelectedItem="{Binding SelectedAssignedPosition}" InputTransparent ="True"/>
+                        <Label Text="Описание"/>
+                        <Editor Text="{Binding Equipment.Description}" IsEnabled="{Binding IsEditing}"/>
+                        <Label Text="Серийный номер"/>
+                        <Entry Text="{Binding Equipment.SerialNumber}" IsEnabled="{Binding IsEditing}"/>
+                        <Label Text="ИСН"/>
+                        <Entry Text="{Binding Equipment.ISNumber}" IsEnabled="{Binding IsEditing}"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

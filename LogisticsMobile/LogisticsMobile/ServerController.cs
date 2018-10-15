@@ -87,6 +87,13 @@ namespace LogisticsMobile
             return JsonConvert.DeserializeObject<List<ModelCount>>(result);
         }
 
+        public async Task<List<ModelCount>> GetAllModels()
+        {
+            HttpClient client = GetClientWithAuth();
+            string result = await client.GetStringAsync(Url + "/AllModels");
+            return JsonConvert.DeserializeObject<List<ModelCount>>(result);
+        }
+
         public async Task<Model> GetModel(int idModel)
         {
             HttpClient client = GetClientWithAuth();

@@ -19,10 +19,16 @@ namespace LogisticsMobile
             InitializeComponent();
             BindingContext = new MainPageMasterViewModel();
             ListView = MenuItemsListView;
+            logoCut.Source = ImageSource.FromResource("LogisticsMobile.Images.astlogo_cut.jpg");
         }
 
         class MainPageMasterViewModel : INotifyPropertyChanged
         {
+            public string UserName
+            {
+                get { return CrossSettings.Current.GetValueOrDefault("Family", null) + " " +
+                        CrossSettings.Current.GetValueOrDefault("Name", null); }
+            }
             public ObservableCollection<MainPageMenuItem> MenuItems { get; set; }
 
             public MainPageMasterViewModel()

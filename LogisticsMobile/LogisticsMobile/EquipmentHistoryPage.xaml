@@ -21,6 +21,9 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.Behaviors>
+                    
+                </ListView.Behaviors>
             </ListView>
         </StackLayout>
     </ContentPage.Content>

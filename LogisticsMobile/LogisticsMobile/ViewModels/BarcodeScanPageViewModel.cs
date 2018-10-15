@@ -49,7 +49,6 @@ namespace LogisticsMobile.ViewModels
         }
 
         public bool IsTorchOn { get; set; }
-        public bool IsScanning { get; set; } = true;
         public bool IsAnalyzing { get; set; } = true;
         public ZXing.Result Result { get; set; }
 

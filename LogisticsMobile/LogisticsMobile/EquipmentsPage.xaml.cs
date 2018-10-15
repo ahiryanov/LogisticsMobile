@@ -13,13 +13,13 @@ namespace LogisticsMobile
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class EquipmentsPage : ContentPage
 	{
-		public EquipmentsPage (Model model)
+		public EquipmentsPage (ModelCount modelCount)
 		{
 			InitializeComponent ();
-            Title = model.VendorName + " " + model.ModelName;
-            EquipmentsPageViewModel epvm = new EquipmentsPageViewModel(model) { Navigation = this.Navigation };
+            EquipmentsPageViewModel epvm = new EquipmentsPageViewModel(modelCount.Model) { Navigation = this.Navigation };
             BindingContext = epvm;
-		}
+            Title = string.Format("{0} {1} ({2} шт)", modelCount.Model.VendorName, modelCount.Model.ModelName, modelCount.Count);
+        }
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {

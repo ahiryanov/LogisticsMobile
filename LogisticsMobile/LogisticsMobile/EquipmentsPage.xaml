@@ -8,7 +8,19 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding Equipments}" SelectedItem="{Binding SelectedEquipment,Mode=TwoWay}" RowHeight="64" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshPullCommand}" ItemSelected="ListView_ItemSelected" VerticalOptions="FillAndExpand">
+            <ListView IsGroupingEnabled="True" GroupDisplayBinding="{Binding Name}" ItemsSource="{Binding Equipments}" SelectedItem="{Binding SelectedEquipment,Mode=TwoWay}" RowHeight="64" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshPullCommand}" ItemSelected="ListView_ItemSelected" VerticalOptions="FillAndExpand">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="0">
+                                <StackLayout VerticalOptions="Center" Orientation="Horizontal" Padding="16,0,16,0">
+                                    <Label Text="{Binding Name,StringFormat='Положение: {0}'}" />
+                                    <Label Text="{Binding Count,StringFormat='кол-во: {0}'}" HorizontalOptions = "EndAndExpand" TextColor = "Gray" FontSize="Small"/>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

@@ -2,21 +2,50 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LogisticsMobile.CategoriesPage"
+             xmlns:stateContainer="clr-namespace:Xamarin.Forms.Essentials.Controls"
              NavigationPage.HasNavigationBar="True"
              Title="Категория">
-    <ContentPage.Content>
-        <StackLayout>
-            <ListView ItemSelected="ListView_ItemSelected" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory,Mode=TwoWay}" RowHeight="48">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Padding="16,12,16,12" >
-                                <Label Text="{Binding}" TextColor="Black" FontSize="16" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
-    </ContentPage.Content>
+    <StackLayout>
+        <SearchBar Placeholder="Поиск" Text="{Binding SearchingText}"/>
+        <stateContainer:StateContainer VerticalOptions="FillAndExpand" State="{Binding State}">
+            <stateContainer:StateCondition State="Categories">
+                <StackLayout>
+                    <ListView ItemSelected="ListView_ItemSelected" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory,Mode=TwoWay}" RowHeight="48">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Padding="16,12,16,12" >
+                                        <Label Text="{Binding}" TextColor="Black" FontSize="16" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </stateContainer:StateCondition>
+
+            <stateContainer:StateCondition State="SearchedModels">
+                <StackLayout>
+                    <ListView ItemSelected="ListView_ItemSelected" ItemsSource="{Binding SearchedModels}" SelectedItem="{Binding SelectedModel,Mode=TwoWay}" RowHeight="64" IsRefreshing="{Binding IsBusy}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Padding="16,8,16,8">
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                            <Label Text="{Binding Model.ModelName}" />
+                                            <Label HorizontalOptions="EndAndExpand" Text="{Binding Model.EquipmentType}" TextColor="#D09E16" FontSize="Small"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                            <Label Text="{Binding Model.VendorName}" FontSize="14" HorizontalOptions="StartAndExpand"/>
+                                            <Label Text="{Binding Count,StringFormat='едениц оборудования: {0}'}" FontSize="12" VerticalOptions="End"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </stateContainer:StateCondition>
+        </stateContainer:StateContainer>
+    </StackLayout>
 </ContentPage>

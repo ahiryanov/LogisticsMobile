@@ -6,22 +6,22 @@
   <StackLayout>
     <ListView x:Name="MenuItemsListView" SeparatorVisibility="None" HasUnevenRows="true" ItemsSource="{Binding MenuItems}">
         <ListView.Header>
-            <Grid BackgroundColor="#03A9F4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="10"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="80"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="10"/>
-                </Grid.RowDefinitions>
-                <Label Grid.Column="1" Grid.Row="1" Text="{Binding UserName}" Style="{DynamicResource SubtitleStyle}"/>
-                <Label Grid.Column="1" Grid.Row="2" Text="АСТ Телеком" Style="{DynamicResource SubtitleStyle}"/>
-            </Grid>
-        </ListView.Header>
+                <Grid BackgroundColor="#03A9F4" RowSpacing="0" ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+                    <Image x:Name="logoCut" Grid.RowSpan="4" Grid.ColumnSpan="3" />
+                    <Label Grid.Column="1" Grid.Row="2" HorizontalOptions="Start" VerticalOptions="End" Text="{Binding UserName}" Style="{DynamicResource SubtitleStyle}" BackgroundColor="LightGray" Opacity="0.75"/>
+                </Grid>
+            </ListView.Header>
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>

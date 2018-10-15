@@ -62,8 +62,10 @@ namespace LogisticsMobile.ViewModels
                     var tempModel = value;
                     _selectedModel = null;
                     OnPropertyChanged(nameof(SelectedModel));
-                    if (tempModel != null) 
-                        Navigation.PushAsync(new EquipmentsPage(tempModel.Model));
+                    if (tempModel != null)
+                    {
+                        Navigation.PushAsync(new EquipmentsPage(tempModel));
+                    }
                 }
             }
         }

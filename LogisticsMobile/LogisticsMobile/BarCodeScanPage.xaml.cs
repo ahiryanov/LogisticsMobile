@@ -25,8 +25,9 @@ namespace LogisticsMobile
 
         private CameraResolution HandleCameraResolutionSelectorDelegate(List<CameraResolution> availableResolutions) //костыль для выбора максимального разрешения камеры
         {
+            CameraResolution maxResolution;
             int maxWidth = 0;
-            CameraResolution maxResolution = new CameraResolution();
+            maxResolution = new CameraResolution();
             foreach (var resolution in availableResolutions)
                 if (resolution.Width > maxWidth)
                 {

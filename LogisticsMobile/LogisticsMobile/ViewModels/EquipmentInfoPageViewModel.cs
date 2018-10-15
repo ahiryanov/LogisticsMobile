@@ -11,13 +11,6 @@ namespace LogisticsMobile.ViewModels
 {
     class EquipmentInfoPageViewModel : INotifyPropertyChanged
     {
-        public event EventHandler SaveNewSuccess;
-        public event EventHandler SaveExistSuccess;
-        public event EventHandler SaveError;
-        private void OnSaveNewSucces() => SaveNewSuccess?.Invoke(this, EventArgs.Empty);
-        private void OnSaveExistSucces() => SaveExistSuccess?.Invoke(this, EventArgs.Empty);
-        private void OnSaveError() => SaveError?.Invoke(this, EventArgs.Empty);
-
         public INavigation Navigation { get; set; }
         ServerController _ctrl = new ServerController();
 
@@ -75,11 +68,11 @@ namespace LogisticsMobile.ViewModels
             if (returnedObj != null)
             {
                 _equipment = returnedObj;
-                OnSaveNewSucces();
+                MessagingCenter.Send(this, "EquipmentsInfoPage", "SaveNew");
                 await Navigation.PopAsync();
             }
             else
-                OnSaveError();
+                MessagingCenter.Send(this, "EquipmentsInfoPage", "SaveError");
         }
 
         private void EditClick()
