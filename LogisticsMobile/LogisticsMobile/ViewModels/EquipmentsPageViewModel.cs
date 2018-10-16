@@ -27,7 +27,7 @@ namespace LogisticsMobile.ViewModels
             AddEquipmentCommand = new Command(AddEquipment);
             DeleteEquipmentCommand = new Command(DeleteEquipment);
             LoadEquipments();
-
+            /*
 
             MessagingCenter.Subscribe<EquipmentInfoPageViewModel,string>(this, "EquipmentsInfoPage", (sender, arg) => {
                 // do something whenever the "Hi" message is sent
@@ -45,7 +45,7 @@ namespace LogisticsMobile.ViewModels
                         break;
                 };
                 
-            });
+            });*/
         }
 
         public class EquipmentsGrouping<K, T> : ObservableCollection<T>

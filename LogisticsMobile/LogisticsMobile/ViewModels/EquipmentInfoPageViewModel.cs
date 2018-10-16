@@ -53,11 +53,11 @@ namespace LogisticsMobile.ViewModels
             Equipment returnedObj = await _ctrl.UpdateEquipment(_equipment);
             if (returnedObj.IDEquipment == _equipment.IDEquipment)
             {
-                MessagingCenter.Send(this, "EquipmentsInfoPage", "SaveExist");
+                DependencyService.Get<IMessage>().ShortAlert("Успешно сохранено!");
                 await Navigation.PopAsync();
             }
             else
-                MessagingCenter.Send(this, "EquipmentsInfoPage", "SaveError");
+                DependencyService.Get<IMessage>().ShortAlert("Ошибка сохранения!");
         }
 
         
@@ -68,11 +68,11 @@ namespace LogisticsMobile.ViewModels
             if (returnedObj != null)
             {
                 _equipment = returnedObj;
-                MessagingCenter.Send(this, "EquipmentsInfoPage", "SaveNew");
+                DependencyService.Get<IMessage>().ShortAlert("Оборудование добавлено!");
                 await Navigation.PopAsync();
             }
             else
-                MessagingCenter.Send(this, "EquipmentsInfoPage", "SaveError");
+                DependencyService.Get<IMessage>().ShortAlert("Ошибка добавления!");
         }
 
         private void EditClick()

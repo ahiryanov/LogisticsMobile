@@ -81,4 +81,52 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="BarCodeScanPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="CategoriesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="EquipmentHistoryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="EquipmentInfoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="EquipmentsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="LoginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="MainPageMaster.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="ModelsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="OpenEquipmentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="OpenModelPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="ScannerPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="TypesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
 </Project>
