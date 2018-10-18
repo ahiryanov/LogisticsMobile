@@ -29,24 +29,26 @@ namespace LogisticsMobile.ViewModels
             IsAnalyzing = false;
             if (ScannedEquipments?.Where(e => e.ISNumber == Result.Text).Count() == 0)
             {
-                Vibration.Vibrate(TimeSpan.FromMilliseconds(50));
+                
                 var addedEquipment = await _ctrl.GetEquipment(Result.Text);
-
+                foreach (var eq in addedEquipment)
+                    eq.Model = await _ctrl.GetModel(eq.IDModel);
                 switch (addedEquipment?.Count)
-                {
-                    case 1:
-                        ScannedEquipments.Add(addedEquipment.FirstOrDefault());
-                        IsAnalyzing = true;
-                        break;
-                    case 0:
-                        //предупреждение оборудование не найдено
-                        IsAnalyzing = true;
-                        break;
-                    default:
-                        //предупреждение много едениц оборудования
-                        IsAnalyzing = true;
-                        break;
-                }
+                    {
+                        case 1:
+                            Vibration.Vibrate(TimeSpan.FromMilliseconds(50));
+                            ScannedEquipments.Add(addedEquipment.FirstOrDefault());
+                            IsAnalyzing = true;
+                            break;
+                        case 0:
+                            //предупреждение оборудование не найдено
+                            IsAnalyzing = true;
+                            break;
+                        default:
+                            //предупреждение много едениц оборудования
+                            IsAnalyzing = true;
+                            break;
+                    }
             }
             else
                 IsAnalyzing = true;
@@ -68,7 +70,8 @@ namespace LogisticsMobile.ViewModels
             set
             {
                 _selectedEquipment = value;
-                Navigation.PushAsync(new OpenEquipmentPage(_selectedEquipment));
+                if(_selectedEquipment!=null)
+                    Navigation.PushAsync(new OpenEquipmentPage(_selectedEquipment));
             }
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace LogisticsMobile.ViewModels
@@ -25,6 +26,7 @@ namespace LogisticsMobile.ViewModels
                         switch(searchedList?.Count)
                         {
                             case 1:
+                                Vibration.Vibrate(TimeSpan.FromMilliseconds(50));
                                 var equipmentPage = new OpenEquipmentPage(searchedList[0]);
                                 equipmentPage.Disappearing += EquipmentPage_Disappearing;
                                 await Navigation.PushAsync(equipmentPage);

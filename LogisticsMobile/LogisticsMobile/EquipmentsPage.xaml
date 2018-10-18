@@ -8,12 +8,12 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <ListView IsGroupingEnabled="True" ItemsSource="{Binding Equipments}" SelectedItem="{Binding SelectedEquipment,Mode=TwoWay}" RowHeight="64" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy,Mode=OneWay}" ItemSelected="ListView_ItemSelected" VerticalOptions="FillAndExpand">
+            <ListView IsGroupingEnabled="True" HasUnevenRows="True" ItemsSource="{Binding Equipments}" SelectedItem="{Binding SelectedEquipment,Mode=TwoWay}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy,Mode=OneWay}" ItemSelected="ListView_ItemSelected" VerticalOptions="FillAndExpand">
                 <ListView.GroupHeaderTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Frame Padding="1">
-                                <StackLayout Orientation="Horizontal" VerticalOptions="Center" HeightRequest="20" Padding="16,0" >
+                            <Frame Margin="2" Padding="5">
+                                <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="16,0" >
                                     <Label Text="{Binding Name,StringFormat='Положение: {0}'}" FontSize="15"/>
                                     <Label Text="{Binding Count,StringFormat='кол-во: {0}'}" HorizontalOptions = "EndAndExpand" TextColor = "Gray" FontSize="Small"/>
                                 </StackLayout>

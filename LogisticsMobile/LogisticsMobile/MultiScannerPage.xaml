@@ -16,10 +16,12 @@
                         </ViewCell.ContextActions>
                         <StackLayout Padding="16,8,16,8">
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-                                <Label Text="{Binding PositionState}" TextColor="Black" FontSize="16" />
+                                <Label Text="{Binding Model.EquipmentType}" TextColor="Black" FontSize="14" />
+                                <Label Text="{Binding Model.VendorName,StringFormat=' {0}'}" TextColor="Black" FontSize="14" />
+                                <Label Text="{Binding Model.ModelName,StringFormat=' {0}'}" TextColor="Black" FontSize="14" />
                             </StackLayout>
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-                                <Label Text="{Binding HealthState}" FontSize="Small" HorizontalOptions="StartAndExpand" TextColor="Gray"/>
+                                <Label Text="{Binding PositionState}" FontSize="Small" HorizontalOptions="StartAndExpand" TextColor="Gray"/>
                                 <Label Text="{Binding ISNumber,StringFormat='ИСН: {0}'}" FontSize="12" VerticalOptions="End" TextColor="Gray"/>
                             </StackLayout>
                         </StackLayout>

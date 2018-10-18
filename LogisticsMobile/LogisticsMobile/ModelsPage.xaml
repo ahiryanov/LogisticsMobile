@@ -11,8 +11,8 @@
                         <ViewCell>
                             <StackLayout Padding="16,8,16,8">
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                    <Label Text="{Binding Model.VendorName}" FontSize="15" />
-                                    <Label Text="{Binding Model.ModelName}" FontSize="15"/>
+                                    <Label Text="{Binding Model.VendorName}" FontSize="16" />
+                                    <Label Text="{Binding Model.ModelName}" FontSize="16"/>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                     <Label HorizontalOptions="StartAndExpand" Text="{Binding Model.EquipmentType}" TextColor="Gray" FontSize="Small"/>
