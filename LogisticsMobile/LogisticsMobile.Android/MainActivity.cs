@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-
+using Android.Runtime;
 
 namespace LogisticsMobile.Droid
 {
@@ -19,11 +19,16 @@ namespace LogisticsMobile.Droid
             LoadApplication(new App());
 
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
+
+            Xamarin.Essentials.Platform.Init(Application);
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

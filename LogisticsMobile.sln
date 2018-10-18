@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsMobile.Android", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsMobile.iOS", "LogisticsMobile\LogisticsMobile.iOS\LogisticsMobile.iOS.csproj", "{98C1685A-7966-467F-B608-7E0AE316893A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsMobile", "LogisticsMobile\LogisticsMobile\LogisticsMobile.csproj", "{83D2B254-9B60-4FDC-BDF4-259EF32A163D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogisticsMobile", "LogisticsMobile\LogisticsMobile\LogisticsMobile.csproj", "{83D2B254-9B60-4FDC-BDF4-259EF32A163D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -8,13 +8,13 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <ListView IsGroupingEnabled="True" GroupDisplayBinding="{Binding Name}" ItemsSource="{Binding Equipments}" SelectedItem="{Binding SelectedEquipment,Mode=TwoWay}" RowHeight="64" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshPullCommand}" ItemSelected="ListView_ItemSelected" VerticalOptions="FillAndExpand">
+            <ListView IsGroupingEnabled="True" ItemsSource="{Binding Equipments}" SelectedItem="{Binding SelectedEquipment,Mode=TwoWay}" RowHeight="64" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy,Mode=OneWay}" ItemSelected="ListView_ItemSelected" VerticalOptions="FillAndExpand">
                 <ListView.GroupHeaderTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Frame Padding="0">
-                                <StackLayout VerticalOptions="Center" Orientation="Horizontal" Padding="16,0,16,0">
-                                    <Label Text="{Binding Name,StringFormat='Положение: {0}'}" />
+                            <Frame Padding="1">
+                                <StackLayout Orientation="Horizontal" VerticalOptions="Center" HeightRequest="20" Padding="16,0" >
+                                    <Label Text="{Binding Name,StringFormat='Положение: {0}'}" FontSize="15"/>
                                     <Label Text="{Binding Count,StringFormat='кол-во: {0}'}" HorizontalOptions = "EndAndExpand" TextColor = "Gray" FontSize="Small"/>
                                 </StackLayout>
                             </Frame>
@@ -29,11 +29,11 @@
                             </ViewCell.ContextActions>
                             <StackLayout Padding="16,8,16,8">
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                    <Label Text="{Binding PositionState}" TextColor="Black" FontSize="16" />
+                                    <Label Text="{Binding PositionState}" TextColor="Black" FontSize="15" />
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                    <Label Text="{Binding HealthState}" FontSize="14" HorizontalOptions="StartAndExpand"/>
-                                    <Label Text="{Binding ISNumber,StringFormat='ИСН: {0}'}" FontSize="12" VerticalOptions="End"/>
+                                    <Label Text="{Binding HealthState}" FontSize="Small" HorizontalOptions="StartAndExpand" TextColor="Gray"/>
+                                    <Label Text="{Binding ISNumber,StringFormat='ИСН: {0}'}" FontSize="12" VerticalOptions="End" TextColor="Gray"/>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             x:Class="LogisticsMobile.MultiScannerPage"
+             Title="Full screen" 
+             x:Name="MiltiScannerPage">
+    <AbsoluteLayout>
+        <zxing:ZXingScannerView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,0.2" x:Name="zxing" ScanResultCommand="{Binding QRScanResultCommand}" IsAnalyzing="{Binding IsAnalyzing}" Result="{Binding Result,Mode=OneWayToSource}" IsTorchOn="{Binding IsTorchOn}" IsScanning="true" />
+        <ListView HasUnevenRows="True" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,1,1,0.8" ItemsSource="{Binding ScannedEquipments}" SelectedItem="{Binding SelectedEquipment}" ItemSelected="ListView_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Удалить" Command="{Binding Path=BindingContext.DeleteEquipmentCommand, Source={x:Reference MiltiScannerPage}}" CommandParameter="{Binding}" />
+                        </ViewCell.ContextActions>
+                        <StackLayout Padding="16,8,16,8">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                                <Label Text="{Binding PositionState}" TextColor="Black" FontSize="16" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                                <Label Text="{Binding HealthState}" FontSize="Small" HorizontalOptions="StartAndExpand" TextColor="Gray"/>
+                                <Label Text="{Binding ISNumber,StringFormat='ИСН: {0}'}" FontSize="12" VerticalOptions="End" TextColor="Gray"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </AbsoluteLayout>
+</ContentPage>

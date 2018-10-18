@@ -11,6 +11,8 @@ namespace LogisticsMobile.ViewModels
     {
         public INavigation Navigation;
 
+        public ICommand RefreshCommand { get; set; }
+
         ServerController _ctrl = new ServerController();
         private bool _isBusy;
         private List<ModelCount> _models;
@@ -22,12 +24,13 @@ namespace LogisticsMobile.ViewModels
         {
             _category = category;
             _type = type;
+            RefreshCommand = new Command(LoadModels);
             LoadModels();
         }
 
         private async void LoadModels()
         {
-            IsBusy = true;
+            IsBusy = false;
             Models = await _ctrl.GetModels(_category,_type);
             IsBusy = false;
         }

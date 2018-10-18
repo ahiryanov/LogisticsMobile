@@ -57,6 +57,7 @@ namespace LogisticsMobile.ViewModels
             CrossSettings.Current.AddOrUpdateValue("Family", validUser.family);
             CrossSettings.Current.AddOrUpdateValue("Name", validUser.name);
             CrossSettings.Current.AddOrUpdateValue("Password", validUser.password);
+            CrossSettings.Current.AddOrUpdateValue("Location", validUser.Location);
             CrossSettings.Current.AddOrUpdateValue("IsStayLogin", IsStayLogin);
         }
 

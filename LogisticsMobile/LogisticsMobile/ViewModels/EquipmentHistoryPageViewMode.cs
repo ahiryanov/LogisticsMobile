@@ -41,9 +41,10 @@ namespace LogisticsMobile.ViewModels
             get { return _selectedHistory; }
             set
             {
+                
+                _selectedHistory = value;
                 if (value != null)
                 {
-                    _selectedHistory = value;
                     var user = _users.Find(r => r.idManager == SelectedHistory.idManager);
                     string message = string.Format("Откуда: {0} \nКуда: {1} \nКто: {2} {3} \nКогда: {4:dd.MM.yyyy HH:mm}", SelectedHistory.TransferFrom, SelectedHistory.TransferTo, user.family, user.name, SelectedHistory.TransferDateTime);
                     Application.Current.MainPage.DisplayAlert("Перемещение", message, "OK");

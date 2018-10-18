@@ -5,17 +5,17 @@
              Title="Модель">
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemSelected="ListView_ItemSelected" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel,Mode=TwoWay}" RowHeight="64" IsRefreshing="{Binding IsBusy}">
+            <ListView ItemSelected="ListView_ItemSelected" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel,Mode=TwoWay}" RowHeight="64" IsRefreshing="{Binding IsBusy,Mode=OneWay}" RefreshCommand="{Binding RefreshCommand}" IsPullToRefreshEnabled="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="16,8,16,8">
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                    <Label Text="{Binding Model.ModelName}" />
-                                    <Label HorizontalOptions="EndAndExpand" Text="{Binding Model.EquipmentType}" TextColor="#D09E16" FontSize="Small"/>
+                                    <Label Text="{Binding Model.VendorName}" FontSize="15" />
+                                    <Label Text="{Binding Model.ModelName}" FontSize="15"/>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                    <Label Text="{Binding Model.VendorName}" FontSize="14" HorizontalOptions="StartAndExpand"/>
+                                    <Label HorizontalOptions="StartAndExpand" Text="{Binding Model.EquipmentType}" TextColor="Gray" FontSize="Small"/>
                                     <Label Text="{Binding Count,StringFormat='едениц оборудования: {0}'}" FontSize="12" VerticalOptions="End"/>
                                 </StackLayout>
                             </StackLayout>

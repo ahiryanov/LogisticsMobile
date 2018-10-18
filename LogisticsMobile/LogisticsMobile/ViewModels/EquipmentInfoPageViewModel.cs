@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using Plugin.Settings;
 
 namespace LogisticsMobile.ViewModels
 {
@@ -21,7 +22,6 @@ namespace LogisticsMobile.ViewModels
         
 
         private bool _isEditing = false;
-        //private bool _isNewEquipment;
         private Equipment _equipment;
         private ObservableCollection<string> _positions;
         private ObservableCollection<string> _healths;
@@ -29,16 +29,18 @@ namespace LogisticsMobile.ViewModels
 
         public EquipmentInfoPageViewModel(Equipment equipment,bool isNewEquipment)
         {
+            
             _equipment = equipment;
             EditClickCommand = new Command(EditClick);
             SaveNewEquipmentCommand = new Command(SaveNew);
             SaveExistEquipmentCommand = new Command(SaveExist);
-            //_isNewEquipment = isNewEquipment;
 
             LoadModel();
             LoadPositions();
             LoadHealths();
             LoadAssignedPositions();
+            if (isNewEquipment)
+                SelectedAssignedPosition = CrossSettings.Current.GetValueOrDefault("Location", null);
         }
 
         private async void LoadModel()
@@ -57,7 +59,7 @@ namespace LogisticsMobile.ViewModels
                 await Navigation.PopAsync();
             }
             else
-                DependencyService.Get<IMessage>().ShortAlert("Ошибка сохранения!");
+                DependencyService.Get<IMessage>().LongAlert("Ошибка сохранения!");
         }
 
         
@@ -72,7 +74,7 @@ namespace LogisticsMobile.ViewModels
                 await Navigation.PopAsync();
             }
             else
-                DependencyService.Get<IMessage>().ShortAlert("Ошибка добавления!");
+                DependencyService.Get<IMessage>().LongAlert("Ошибка добавления!");
         }
 
         private void EditClick()
@@ -83,7 +85,7 @@ namespace LogisticsMobile.ViewModels
         private async void LoadPositions()
         {
             Positions = new ObservableCollection<string>(await _ctrl.GetPositions());
-            OnPropertyChanged(nameof(SelectedPosition));;
+            OnPropertyChanged(nameof(SelectedPosition));
         }
 
         private async void LoadHealths()
