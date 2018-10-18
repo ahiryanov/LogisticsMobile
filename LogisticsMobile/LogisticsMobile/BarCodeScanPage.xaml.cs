@@ -17,10 +17,9 @@ namespace LogisticsMobile
 
         private void ScannerOverlay_FlashButtonClicked(Button sender, EventArgs e)
         {
+            //(sender.BindingContext as BarcodeScanPageViewModel).IsTorchOn = !(sender.BindingContext as BarcodeScanPageViewModel).IsTorchOn;
             var viewmodel = BindingContext as BarcodeScanPageViewModel;
             viewmodel.IsTorchOn = !viewmodel.IsTorchOn;
-            
-
         }
 
         private CameraResolution HandleCameraResolutionSelectorDelegate(List<CameraResolution> availableResolutions) //костыль для выбора максимального разрешения камеры
@@ -35,6 +34,16 @@ namespace LogisticsMobile
                     maxResolution = resolution;
                 }
             return maxResolution;
+        }
+
+        private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            (((ContentPage)sender).BindingContext as BarcodeScanPageViewModel).IsScanning = true;
+        }
+
+        private void ContentPage_Disappearing(object sender, EventArgs e)
+        {
+            (((ContentPage)sender).BindingContext as BarcodeScanPageViewModel).IsScanning = false;
         }
     }
 }

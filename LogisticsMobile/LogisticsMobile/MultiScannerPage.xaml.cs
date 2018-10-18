@@ -39,5 +39,15 @@ namespace LogisticsMobile
              return maxResolution;
             //return availableResolutions.FirstOrDefault();
         }
+
+        private void MiltiScannerPage_Appearing(object sender, EventArgs e)
+        {
+            (((ContentPage)sender).BindingContext as MultiScannerPageViewModel).IsScanning = true;
+        }
+
+        private void MiltiScannerPage_Disappearing(object sender, EventArgs e)
+        {
+            (((ContentPage)sender).BindingContext as MultiScannerPageViewModel).IsScanning = false;
+        }
     }
 }

@@ -4,9 +4,9 @@
              xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
              x:Class="LogisticsMobile.MultiScannerPage"
              Title="Full screen" 
-             x:Name="MiltiScannerPage">
+             x:Name="MiltiScannerPage" Appearing="MiltiScannerPage_Appearing" Disappearing="MiltiScannerPage_Disappearing">
     <AbsoluteLayout>
-        <zxing:ZXingScannerView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,0.2" x:Name="zxing" ScanResultCommand="{Binding QRScanResultCommand}" IsAnalyzing="{Binding IsAnalyzing}" Result="{Binding Result,Mode=OneWayToSource}" IsTorchOn="{Binding IsTorchOn}" IsScanning="true" />
+        <zxing:ZXingScannerView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,0.2" x:Name="zxing" ScanResultCommand="{Binding QRScanResultCommand}" IsAnalyzing="{Binding IsAnalyzing}" Result="{Binding Result,Mode=OneWayToSource}" IsTorchOn="{Binding IsTorchOn}" IsScanning="{Binding IsScanning}" />
         <ListView HasUnevenRows="True" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,1,1,0.8" ItemsSource="{Binding ScannedEquipments}" SelectedItem="{Binding SelectedEquipment}" ItemSelected="ListView_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>

@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-             x:Class="LogisticsMobile.BarCodeScanPage">
+             x:Class="LogisticsMobile.BarCodeScanPage" Appearing="ContentPage_Appearing" Disappearing="ContentPage_Disappearing">
     <AbsoluteLayout>
-        <forms:ZXingScannerView x:Name="zxing" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" IsScanning="True" IsAnalyzing="{Binding IsAnalyzing, Mode=TwoWay}" Result="{Binding Result, Mode=TwoWay}" ScanResultCommand="{Binding QRScanResultCommand}" IsTorchOn="{Binding IsTorchOn, Mode=TwoWay}" />
+        <forms:ZXingScannerView x:Name="zxing" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" IsScanning="{Binding IsScanning}" IsAnalyzing="{Binding IsAnalyzing, Mode=TwoWay}" Result="{Binding Result, Mode=TwoWay}" ScanResultCommand="{Binding QRScanResultCommand}" IsTorchOn="{Binding IsTorchOn, Mode=TwoWay}" />
         <forms:ZXingDefaultOverlay AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" BottomText="Наведите камеру на штрих-код" ShowFlashButton="True" FlashButtonClicked = "ScannerOverlay_FlashButtonClicked" />
     </AbsoluteLayout>
 </ContentPage>

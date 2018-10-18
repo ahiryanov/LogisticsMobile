@@ -10,7 +10,7 @@ using Xamarin.Essentials;
 
 namespace LogisticsMobile.ViewModels
 {
-    public class MultiScannerPageViewModel :INotifyPropertyChanged
+    public class MultiScannerPageViewModel : INotifyPropertyChanged
     {
         private ServerController _ctrl = new ServerController();
         public INavigation Navigation { get; set; }
@@ -29,26 +29,26 @@ namespace LogisticsMobile.ViewModels
             IsAnalyzing = false;
             if (ScannedEquipments?.Where(e => e.ISNumber == Result.Text).Count() == 0)
             {
-                
+
                 var addedEquipment = await _ctrl.GetEquipment(Result.Text);
                 foreach (var eq in addedEquipment)
                     eq.Model = await _ctrl.GetModel(eq.IDModel);
                 switch (addedEquipment?.Count)
-                    {
-                        case 1:
-                            Vibration.Vibrate(TimeSpan.FromMilliseconds(50));
-                            ScannedEquipments.Add(addedEquipment.FirstOrDefault());
-                            IsAnalyzing = true;
-                            break;
-                        case 0:
-                            //предупреждение оборудование не найдено
-                            IsAnalyzing = true;
-                            break;
-                        default:
-                            //предупреждение много едениц оборудования
-                            IsAnalyzing = true;
-                            break;
-                    }
+                {
+                    case 1:
+                        Vibration.Vibrate(TimeSpan.FromMilliseconds(50));
+                        ScannedEquipments.Add(addedEquipment.FirstOrDefault());
+                        IsAnalyzing = true;
+                        break;
+                    case 0:
+                        //предупреждение оборудование не найдено
+                        IsAnalyzing = true;
+                        break;
+                    default:
+                        //предупреждение много едениц оборудования
+                        IsAnalyzing = true;
+                        break;
+                }
             }
             else
                 IsAnalyzing = true;
@@ -70,7 +70,7 @@ namespace LogisticsMobile.ViewModels
             set
             {
                 _selectedEquipment = value;
-                if(_selectedEquipment!=null)
+                if (_selectedEquipment != null)
                     Navigation.PushAsync(new OpenEquipmentPage(_selectedEquipment));
             }
         }
@@ -78,6 +78,7 @@ namespace LogisticsMobile.ViewModels
         public ObservableCollection<Equipment> ScannedEquipments { get; set; } = new ObservableCollection<Equipment>();
         public bool IsTorchOn { get; set; }
         public bool IsAnalyzing { get; set; } = true;
+        public bool IsScanning { get; set; }
         public ZXing.Result Result { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
