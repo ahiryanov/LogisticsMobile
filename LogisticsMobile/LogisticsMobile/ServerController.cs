@@ -147,6 +147,15 @@ namespace LogisticsMobile
             return JsonConvert.DeserializeObject<Equipment>(await response.Content.ReadAsStringAsync());
         }
         // 
+        public async Task<List<Equipment>> TransferEquipments(List<Equipment> equipments)
+        {
+            HttpClient client = GetClientWithAuth();
+            var response = await client.PutAsync(Url + "/TransferEquipments" , new StringContent(JsonConvert.SerializeObject(equipments), Encoding.UTF8, "application/json"));
+            if (response.StatusCode != HttpStatusCode.OK)
+                return null;
+            return JsonConvert.DeserializeObject<List<Equipment>>(await response.Content.ReadAsStringAsync());
+        }
+        // 
         public async Task<Equipment> DeleteEquipment(int id)
         {
             HttpClient client = GetClientWithAuth();

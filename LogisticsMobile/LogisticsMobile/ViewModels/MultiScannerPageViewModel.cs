@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using Rg.Plugins.Popup.Services;
 
 namespace LogisticsMobile.ViewModels
 {
@@ -15,13 +16,19 @@ namespace LogisticsMobile.ViewModels
         private ServerController _ctrl = new ServerController();
         public INavigation Navigation { get; set; }
         public ICommand DeleteEquipmentCommand { protected set; get; }
-        public ICommand QRScanResultCommand { protected set; get; }
+        public ICommand TransferEquipmentsCommand { get; private set; }
+        public ICommand QRScanResultCommand { private set; get; }
 
         public MultiScannerPageViewModel()
         {
             DeleteEquipmentCommand = new Command(DeleteEquipment);
+            TransferEquipmentsCommand = new Command(TransferEquipments);
             QRScanResultCommand = new Command(Scanning);
-            //ScannedEquipments.Add(new Equipment() { PositionState = "sldfkjldfj", ISNumber = "798797979", HealthState = "lkdjfldskjf" });
+        }
+
+        private async void TransferEquipments(object obj)
+        {
+            await PopupNavigation.Instance.PushAsync(new PopupTransferEquipment());
         }
 
         private async void Scanning()
@@ -41,11 +48,11 @@ namespace LogisticsMobile.ViewModels
                         IsAnalyzing = true;
                         break;
                     case 0:
-                        //предупреждение оборудование не найдено
+                        DependencyService.Get<IMessage>().ShortAlert("Не найдено!");
                         IsAnalyzing = true;
                         break;
                     default:
-                        //предупреждение много едениц оборудования
+                        DependencyService.Get<IMessage>().LongAlert("Несколько едениц оборудования с этим ИСН");
                         IsAnalyzing = true;
                         break;
                 }
