@@ -28,7 +28,7 @@ namespace LogisticsMobile.ViewModels
 
         private async void TransferEquipments(object obj)
         {
-            await PopupNavigation.Instance.PushAsync(new PopupTransferEquipment());
+            await PopupNavigation.Instance.PushAsync(new PopupTransferEquipment(await _ctrl.GetPositions()));
         }
 
         private async void Scanning()

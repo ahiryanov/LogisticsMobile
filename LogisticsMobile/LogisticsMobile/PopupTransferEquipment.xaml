@@ -17,7 +17,8 @@
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
     <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20">
-        <Entry HorizontalOptions="FillAndExpand" />
+        <Entry HorizontalOptions="FillAndExpand" Text="{Binding Position}"/>
+        <ListView IsVisible="{Binding IsVisibleListView}" HorizontalOptions="Center" VerticalOptions="Center" ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}" ItemSelected="ListView_ItemSelected"/>
         <Button Text="Сохранить" />
     </StackLayout>
 </pages:PopupPage>
