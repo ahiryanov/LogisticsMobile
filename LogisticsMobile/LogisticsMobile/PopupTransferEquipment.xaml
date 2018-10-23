@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LogisticsMobile.PopupTransferEquipment"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup" >
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                 Padding="60">
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation 
             PositionIn="Center"
@@ -16,9 +17,17 @@
             EasingOut="SinIn"
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
-    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20">
-        <Entry HorizontalOptions="FillAndExpand" Text="{Binding Position}"/>
-        <ListView IsVisible="{Binding IsVisibleListView}" HorizontalOptions="Center" VerticalOptions="Center" ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}" ItemSelected="ListView_ItemSelected"/>
-        <Button Text="Сохранить" />
+    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Padding="5">
+        <Entry Placeholder="Введите положение" HorizontalOptions="FillAndExpand" Text="{Binding Position}" />
+        <ListView IsVisible="{Binding IsVisibleListView}" VerticalOptions="FillAndExpand" ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}" ItemSelected="ListView_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="{Binding}" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="Переместить" Command="TransferCommand" />
     </StackLayout>
 </pages:PopupPage>

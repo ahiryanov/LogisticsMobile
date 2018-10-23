@@ -4,17 +4,21 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace LogisticsMobile.ViewModels
 {
     class PopupTransferEquipmentViewModel : INotifyPropertyChanged
     {
+        public ICommand TransferCommand { get; private set; }
         public bool IsVisibleListView { get; set; } = false;
         public ObservableCollection<string> Positions { get; set; }
 
         private List<string> _allPositions;
         public PopupTransferEquipmentViewModel(List<string> allPositions)
         {
+            TransferCommand = new Command();
             _allPositions = allPositions;
         }
 
