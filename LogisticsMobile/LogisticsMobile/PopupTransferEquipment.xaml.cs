@@ -9,9 +9,11 @@ namespace LogisticsMobile
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PopupTransferEquipment : PopupPage
     {
-		public PopupTransferEquipment (List<string> allPositions)
+        private string selectedPosition;
+
+        public PopupTransferEquipment (List<string> allPositions)
 		{
-			InitializeComponent ();
+			InitializeComponent();
             BindingContext = new PopupTransferEquipmentViewModel(allPositions);
 		}
 

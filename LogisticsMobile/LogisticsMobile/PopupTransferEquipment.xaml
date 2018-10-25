@@ -28,6 +28,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Переместить" Command="TransferCommand" />
+        <Button Text="Переместить" Command="{Binding ConfirmTransferPositionCommand}" />
     </StackLayout>
 </pages:PopupPage>

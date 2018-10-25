@@ -82,6 +82,12 @@ namespace LogisticsMobile.ViewModels
             }
         }
 
+        private string _selectedPosition;
+        public string SelectedPosition
+        {
+            get => _selectedPosition;
+            set { _selectedPosition = value; }
+        }
         public ObservableCollection<Equipment> ScannedEquipments { get; set; } = new ObservableCollection<Equipment>();
         public bool IsTorchOn { get; set; }
         public bool IsAnalyzing { get; set; } = true;
