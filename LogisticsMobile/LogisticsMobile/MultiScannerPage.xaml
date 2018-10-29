@@ -46,6 +46,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Label Margin="10" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Text="{Binding SelectedPosition}" />
+        <ActivityIndicator AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
     </AbsoluteLayout>
 </ContentPage>

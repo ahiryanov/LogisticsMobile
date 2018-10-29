@@ -37,10 +37,21 @@ namespace LogisticsMobile.ViewModels
 
         private async void PopupPage_DisappearingAsync(object sender, EventArgs e)
         {
-            SelectedPosition = ((sender as PopupTransferEquipment).BindingContext as PopupTransferEquipmentViewModel).Position;
-            var userid = CrossSettings.Current.GetValueOrDefault("UserID", null);
-            int.TryParse(userid, out _userID);
-            await _ctrl.TransferEquipments(ScannedEquipments.ToList(), _userID, SelectedPosition);
+            SelectedPosition = ((sender as PopupTransferEquipment).BindingContext as PopupTransferEquipmentViewModel).ConfirmedPosition;
+            if (SelectedPosition != null)
+            {
+                int.TryParse(CrossSettings.Current.GetValueOrDefault("UserID", null), out _userID);
+                if (await _ctrl.TransferEquipments(ScannedEquipments.ToList(), _userID, SelectedPosition) != null)
+                {
+                    DependencyService.Get<IMessage>().LongAlert("Оборудование перемещено");
+                    foreach (var eq in ScannedEquipments)
+                        eq.PositionState = SelectedPosition;
+                    ScannedEquipments = new ObservableCollection<Equipment>();
+                    SelectedPosition = null;
+                }
+                else
+                    DependencyService.Get<IMessage>().ShortAlert("Ошибка перемещения");
+            }
         }
 
         private async void Scanning()
@@ -48,10 +59,14 @@ namespace LogisticsMobile.ViewModels
             IsAnalyzing = false;
             if (ScannedEquipments?.Where(e => e.ISNumber == Result.Text).Count() == 0)
             {
+                var addedEquipment = new List<Equipment>();
 
-                var addedEquipment = await _ctrl.GetEquipment(Result?.Text);
+                IsBusy = true;
+                addedEquipment = await GetEquipmentAsync();
                 foreach (var eq in addedEquipment)
                     eq.Model = await _ctrl.GetModel(eq.IDModel);
+                IsBusy = false;
+
                 switch (addedEquipment?.Count)
                 {
                     case 1:
@@ -78,6 +93,11 @@ namespace LogisticsMobile.ViewModels
             }
         }
 
+        private async Task<List<Equipment>> GetEquipmentAsync()
+        {
+            return await _ctrl.GetEquipment(Result?.Text);
+        }
+
         private void DeleteEquipment(object obj)
         {
             if (obj != null)
@@ -100,6 +120,7 @@ namespace LogisticsMobile.ViewModels
         }
         public string SelectedPosition { get; set; }
         public ObservableCollection<Equipment> ScannedEquipments { get; set; } = new ObservableCollection<Equipment>();
+        public bool IsBusy { get; set; }
         public bool IsTorchOn { get; set; }
         public bool IsAnalyzing { get; set; } = true;
         public bool IsScanning { get; set; }

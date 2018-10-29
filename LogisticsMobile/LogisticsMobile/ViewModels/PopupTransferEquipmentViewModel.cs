@@ -22,8 +22,11 @@ namespace LogisticsMobile.ViewModels
 
         private void ConfirmTransferPosition()
         {
+            ConfirmedPosition = Position;
             PopupNavigation.Instance.PopAsync();
         }
+
+        public string ConfirmedPosition { get; set; }
 
         private string _position;
         public string Position

@@ -14,10 +14,10 @@ namespace LogisticsMobile
 {
     public class ServerController
     {
-        const string Url = "http://192.168.10.10:54298/api/Equipments";
-        const string AuthUrl = "http://192.168.10.10:54298/api/Auth";
-        //const string Url = "https://logistics.ast-telecom.ru/api/Equipments";
-        //const string AuthUrl = "https://logistics.ast-telecom.ru/api/Auth";
+        //const string Url = "http://192.168.10.10:54298/api/Equipments";
+        //const string AuthUrl = "http://192.168.10.10:54298/api/Auth";
+        const string Url = "https://logistics.ast-telecom.ru/api/Equipments";
+        const string AuthUrl = "https://logistics.ast-telecom.ru/api/Auth";
         private string authString;
         public ServerController()
         {
