@@ -14,8 +14,10 @@ namespace LogisticsMobile
 {
     public class ServerController
     {
-        const string Url = "https://logistics.ast-telecom.ru/api/Equipments";
-        const string AuthUrl = "https://logistics.ast-telecom.ru/api/Auth";
+        const string Url = "http://192.168.10.10:54298/api/Equipments";
+        const string AuthUrl = "http://192.168.10.10:54298/api/Auth";
+        //const string Url = "https://logistics.ast-telecom.ru/api/Equipments";
+        //const string AuthUrl = "https://logistics.ast-telecom.ru/api/Auth";
         private string authString;
         public ServerController()
         {
@@ -147,13 +149,20 @@ namespace LogisticsMobile
             return JsonConvert.DeserializeObject<Equipment>(await response.Content.ReadAsStringAsync());
         }
         // 
-        public async Task<List<Equipment>> TransferEquipments(List<Equipment> equipments)
+        public async Task<string> TransferEquipments(List<Equipment> equipments , int userID, string newPosition)
         {
             HttpClient client = GetClientWithAuth();
-            var response = await client.PutAsync(Url + "/TransferEquipments" , new StringContent(JsonConvert.SerializeObject(equipments), Encoding.UTF8, "application/json"));
+            TransferInfo transfer = new TransferInfo()
+            {
+                Equipments = equipments,
+                UserID = userID,
+                NewPosition = newPosition
+            };
+           
+            var response = await client.PutAsync(Url + "/TransferEquipments"  , new StringContent(JsonConvert.SerializeObject(transfer), Encoding.UTF8, "application/json"));
             if (response.StatusCode != HttpStatusCode.OK)
                 return null;
-            return JsonConvert.DeserializeObject<List<Equipment>>(await response.Content.ReadAsStringAsync());
+            return JsonConvert.DeserializeObject<string>(await response.Content.ReadAsStringAsync());
         }
         // 
         public async Task<Equipment> DeleteEquipment(int id)

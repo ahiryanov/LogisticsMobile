@@ -8,6 +8,8 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using Rg.Plugins.Popup.Services;
+using System.Threading;
+using Plugin.Settings;
 
 namespace LogisticsMobile.ViewModels
 {
@@ -28,7 +30,17 @@ namespace LogisticsMobile.ViewModels
 
         private async void TransferEquipments(object obj)
         {
-            await PopupNavigation.Instance.PushAsync(new PopupTransferEquipment(await _ctrl.GetPositions()));
+            var popupPage = new PopupTransferEquipment(await _ctrl.GetPositions());
+            popupPage.Disappearing += PopupPage_DisappearingAsync;
+            await PopupNavigation.Instance.PushAsync(popupPage);
+        }
+
+        private async void PopupPage_DisappearingAsync(object sender, EventArgs e)
+        {
+            SelectedPosition = ((sender as PopupTransferEquipment).BindingContext as PopupTransferEquipmentViewModel).Position;
+            var userid = CrossSettings.Current.GetValueOrDefault("UserID", null);
+            int.TryParse(userid, out _userID);
+            await _ctrl.TransferEquipments(ScannedEquipments.ToList(), _userID, SelectedPosition);
         }
 
         private async void Scanning()
@@ -37,7 +49,7 @@ namespace LogisticsMobile.ViewModels
             if (ScannedEquipments?.Where(e => e.ISNumber == Result.Text).Count() == 0)
             {
 
-                var addedEquipment = await _ctrl.GetEquipment(Result.Text);
+                var addedEquipment = await _ctrl.GetEquipment(Result?.Text);
                 foreach (var eq in addedEquipment)
                     eq.Model = await _ctrl.GetModel(eq.IDModel);
                 switch (addedEquipment?.Count)
@@ -49,16 +61,21 @@ namespace LogisticsMobile.ViewModels
                         break;
                     case 0:
                         DependencyService.Get<IMessage>().ShortAlert("Не найдено!");
+                        Thread.Sleep(100);
                         IsAnalyzing = true;
                         break;
                     default:
                         DependencyService.Get<IMessage>().LongAlert("Несколько едениц оборудования с этим ИСН");
+                        Thread.Sleep(100);
                         IsAnalyzing = true;
                         break;
                 }
             }
             else
+            {
+                Thread.Sleep(100);
                 IsAnalyzing = true;
+            }
         }
 
         private void DeleteEquipment(object obj)
@@ -81,13 +98,7 @@ namespace LogisticsMobile.ViewModels
                     Navigation.PushAsync(new OpenEquipmentPage(_selectedEquipment));
             }
         }
-
-        private string _selectedPosition;
-        public string SelectedPosition
-        {
-            get => _selectedPosition;
-            set { _selectedPosition = value; }
-        }
+        public string SelectedPosition { get; set; }
         public ObservableCollection<Equipment> ScannedEquipments { get; set; } = new ObservableCollection<Equipment>();
         public bool IsTorchOn { get; set; }
         public bool IsAnalyzing { get; set; } = true;
@@ -95,5 +106,7 @@ namespace LogisticsMobile.ViewModels
         public ZXing.Result Result { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private int _userID;
     }
 }

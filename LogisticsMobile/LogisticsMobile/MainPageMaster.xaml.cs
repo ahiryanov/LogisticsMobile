@@ -57,6 +57,7 @@ namespace LogisticsMobile
 
         private void Logout_Clicked(object sender, EventArgs e)
         {
+            CrossSettings.Current.Remove("UserID");
             CrossSettings.Current.Remove("Family");
             CrossSettings.Current.Remove("Name");
             CrossSettings.Current.Remove("Password");
