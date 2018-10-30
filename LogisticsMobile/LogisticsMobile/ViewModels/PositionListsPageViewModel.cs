@@ -14,6 +14,7 @@ namespace LogisticsMobile
         private ServerController _ctrl = new ServerController();
         private ObservableCollection<string> _allPositions;
 
+        public INavigation Navigation { get; set; }
         public bool IsBusy { get; set; }
         public ObservableCollection<string> Positions { get; set; }
         public ICommand RefreshCommand { get; private set; }
@@ -25,6 +26,10 @@ namespace LogisticsMobile
             set
             {
                 _selectedPosition = value;
+                if(_selectedPosition != null)
+                {
+                    Navigation.PushAsync(new ModelsPage(_selectedPosition));
+                }
             }
         }
 

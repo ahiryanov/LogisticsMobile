@@ -25,14 +25,27 @@ namespace LogisticsMobile.ViewModels
         {
             _category = category;
             _type = type;
-            RefreshCommand = new Command(LoadModels);
-            LoadModels();
+            RefreshCommand = new Command(() => LoadModels(category, type));
+            LoadModels(category, type);
         }
 
-        private async void LoadModels()
+        public ModelsPageViewModel(string position)
+        {
+            RefreshCommand = new Command(() => LoadModelsByPositionAsync(position));
+            LoadModelsByPositionAsync(position);
+        }
+
+        private async void LoadModelsByPositionAsync(string position)
         {
             IsBusy = true;
-            await Task.Run(async () => Models = await _ctrl.GetModels(_category, _type));
+            await Task.Run(async () => Models = await _ctrl.GetModelsByPosition(position));
+            IsBusy = false;
+        }
+
+        private async void LoadModels(string category, string type)
+        {
+            IsBusy = true;
+            await Task.Run(async () => Models = await _ctrl.GetModels(category, type));
             IsBusy = false;
         }
 

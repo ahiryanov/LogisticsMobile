@@ -9,7 +9,7 @@ namespace LogisticsMobile
 		public PositionListsPage()
 		{
 			InitializeComponent();
-            BindingContext = new PositionListsPageViewModel();
+            BindingContext = new PositionListsPageViewModel() { Navigation = this.Navigation };
 		}
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)

@@ -15,10 +15,16 @@ namespace LogisticsMobile
 	{
 		public ModelsPage (string category, string type)
 		{
-			InitializeComponent ();
+			InitializeComponent();
             ModelsPageViewModel mpvm = new ModelsPageViewModel(category, type) { Navigation = this.Navigation };
             BindingContext = mpvm;
 		}
+
+        public ModelsPage(string position)
+        {
+            InitializeComponent();
+            BindingContext = new ModelsPageViewModel(position) { Navigation = this.Navigation };
+        }
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
