@@ -54,8 +54,11 @@ namespace LogisticsMobile.ViewModels
             set
             {
                 _selectedPosition = value;
-                if(_selectedPosition!=null)
+                if (_selectedPosition != null)
+                {
                     Position = _selectedPosition;
+                    IsVisibleListView = false;
+                }
             }
         }
 

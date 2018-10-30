@@ -39,6 +39,7 @@ namespace LogisticsMobile.ViewModels
                 if (returnedObj != null)
                 {
                     _equipments.Remove(obj as Equipment);
+                    LoadEquipments();
                     DependencyService.Get<IMessage>().LongAlert("Удалено!");
                 }
             }
@@ -47,18 +48,27 @@ namespace LogisticsMobile.ViewModels
         private async void AddEquipment()
         {
             var newEq = new EquipmentInfoPage(new Equipment() { IDModel = _model.IDModel }, true);
+            newEq.Disappearing += NewEq_Disappearing;
             await Navigation.PushAsync(newEq);
         }
 
-        private async void LoadEquipments()
+        private void NewEq_Disappearing(object sender, System.EventArgs e)
         {
-            IsBusy = false;
+            LoadEquipments();
+        }
 
+        private void LoadEquipments()
+        {
+            IsBusy = true;
+            Task.Run(() => LoadAndGrouping().Wait());
+            IsBusy = false;
+        }
+
+        private async Task LoadAndGrouping()
+        {
             _equipments = new ObservableCollection<Equipment>(await _ctrl.GetEquipments(_model));
             var grouping = _equipments.GroupBy(e => e.PositionState).Select(g => new EquipmentsGrouping<string, Equipment>(g.Key, g));
             Equipments = new ObservableCollection<EquipmentsGrouping<string, Equipment>>(grouping);
-           
-            IsBusy = false;
         }
 
         private bool _isBusy;

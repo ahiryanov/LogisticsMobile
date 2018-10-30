@@ -26,7 +26,7 @@
                         <Label Text="Оставаться в программе" HorizontalOptions="StartAndExpand"/>
                         <Switch IsToggled="{Binding IsStayLogin}" />
                     </StackLayout>
-                    <Button Text="Нажать" Command="{Binding LoginButtonCommand}" BackgroundColor="White"/>
+                    <Button Text="Войти" Command="{Binding LoginButtonCommand}" BackgroundColor="White"/>
                 </StackLayout>
             </Frame>
         </stateContainer:StateCondition>

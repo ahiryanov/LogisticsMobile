@@ -18,12 +18,12 @@
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
     <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Padding="5">
-        <Entry Placeholder="Введите положение" HorizontalOptions="FillAndExpand" Text="{Binding Position}" />
+        <Entry Placeholder="Введите положение" HorizontalOptions="FillAndExpand" Text="{Binding Position}" FontSize="Medium"/>
         <ListView IsVisible="{Binding IsVisibleListView}" VerticalOptions="FillAndExpand" ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}" ItemSelected="ListView_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Label Text="{Binding}" />
+                        <Label Text="{Binding}" FontSize="15"/>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

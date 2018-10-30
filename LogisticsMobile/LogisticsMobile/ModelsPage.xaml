@@ -16,7 +16,7 @@
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                     <Label HorizontalOptions="StartAndExpand" Text="{Binding Model.EquipmentType}" TextColor="Gray" FontSize="Small"/>
-                                    <Label Text="{Binding Count,StringFormat='едениц оборудования: {0}'}" FontSize="12" VerticalOptions="End"/>
+                                    <Label Text="{Binding Count,StringFormat='единиц оборудования: {0}'}" FontSize="12" VerticalOptions="End"/>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>

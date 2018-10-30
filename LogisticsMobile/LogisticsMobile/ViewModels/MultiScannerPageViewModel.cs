@@ -62,9 +62,15 @@ namespace LogisticsMobile.ViewModels
                 var addedEquipment = new List<Equipment>();
 
                 IsBusy = true;
-                addedEquipment = await GetEquipmentAsync();
-                foreach (var eq in addedEquipment)
-                    eq.Model = await _ctrl.GetModel(eq.IDModel);
+                await Task.Run(async () =>
+                  {
+                      addedEquipment = await _ctrl.GetEquipment(Result?.Text);
+                      foreach (Equipment eq in addedEquipment)
+                      {
+                          eq.Model = await _ctrl.GetModel(eq.IDModel);
+                      }
+                  });
+                
                 IsBusy = false;
 
                 switch (addedEquipment?.Count)
@@ -93,11 +99,6 @@ namespace LogisticsMobile.ViewModels
             }
         }
 
-        private async Task<List<Equipment>> GetEquipmentAsync()
-        {
-            return await _ctrl.GetEquipment(Result?.Text);
-        }
-
         private void DeleteEquipment(object obj)
         {
             if (obj != null)
@@ -115,9 +116,22 @@ namespace LogisticsMobile.ViewModels
             {
                 _selectedEquipment = value;
                 if (_selectedEquipment != null)
-                    Navigation.PushAsync(new OpenEquipmentPage(_selectedEquipment));
+                {
+                    IsScanning = false;
+                    IsAnalyzing = false;
+                    var openEquipment = new OpenEquipmentPage(_selectedEquipment);
+                    openEquipment.Disappearing += OpenEquipment_Disappearing;
+                    Navigation.PushAsync(openEquipment);
+                }
             }
         }
+
+        private void OpenEquipment_Disappearing(object sender, EventArgs e)
+        {
+            IsScanning = true;
+            IsAnalyzing = true;
+        }
+
         public string SelectedPosition { get; set; }
         public ObservableCollection<Equipment> ScannedEquipments { get; set; } = new ObservableCollection<Equipment>();
         public bool IsBusy { get; set; }

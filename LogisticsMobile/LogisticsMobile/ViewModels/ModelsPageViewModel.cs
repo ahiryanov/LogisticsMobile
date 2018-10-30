@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -30,8 +31,8 @@ namespace LogisticsMobile.ViewModels
 
         private async void LoadModels()
         {
-            IsBusy = false;
-            Models = await _ctrl.GetModels(_category,_type);
+            IsBusy = true;
+            await Task.Run(async () => Models = await _ctrl.GetModels(_category, _type));
             IsBusy = false;
         }
 
