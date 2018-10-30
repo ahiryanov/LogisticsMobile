@@ -38,7 +38,7 @@ namespace LogisticsMobile.ViewModels
         private async void PopupPage_DisappearingAsync(object sender, EventArgs e)
         {
             SelectedPosition = ((sender as PopupTransferEquipment).BindingContext as PopupTransferEquipmentViewModel).ConfirmedPosition;
-            if (SelectedPosition != null)
+            if (SelectedPosition != null && ScannedEquipments.Count > 0)
             {
                 int.TryParse(CrossSettings.Current.GetValueOrDefault("UserID", null), out _userID);
                 if (await _ctrl.TransferEquipments(ScannedEquipments.ToList(), _userID, SelectedPosition) != null)

@@ -9,43 +9,46 @@
         <ToolbarItem Text="Переместить" Command="{Binding TransferEquipmentsCommand}" />
     </ContentPage.ToolbarItems>
     <AbsoluteLayout>
-        <zxing:ZXingScannerView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,0.2" x:Name="zxing" ScanResultCommand="{Binding QRScanResultCommand}" IsAnalyzing="{Binding IsAnalyzing}" Result="{Binding Result, Mode=TwoWay}" IsTorchOn="{Binding IsTorchOn}" IsScanning="{Binding IsScanning}" />
-        <ListView HasUnevenRows="True" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,1,1,0.8" ItemsSource="{Binding ScannedEquipments}" SelectedItem="{Binding SelectedEquipment}" ItemSelected="ListView_ItemSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.ContextActions>
-                            <MenuItem Text="Удалить" Command="{Binding Path=BindingContext.DeleteEquipmentCommand, Source={x:Reference MiltiScannerPage}}" CommandParameter="{Binding}" />
-                        </ViewCell.ContextActions>
-                        <StackLayout Padding="16,8,16,8">
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-                                <Label Text="{Binding Model.EquipmentType}" TextColor="Black" FontSize="14" />
-                                <Label Text="{Binding Model.VendorName,StringFormat=' {0}'}" TextColor="Black" FontSize="14" />
-                                <Label Text="{Binding Model.ModelName,StringFormat=' {0}'}" TextColor="Black" FontSize="14" />
+        <zxing:ZXingScannerView TranslationY="-250" AbsoluteLayout.LayoutFlags="SizeProportional" AbsoluteLayout.LayoutBounds="0,0,1,1" x:Name="zxing" ScanResultCommand="{Binding QRScanResultCommand}" IsAnalyzing="{Binding IsAnalyzing}" Result="{Binding Result, Mode=TwoWay}" IsTorchOn="{Binding IsTorchOn}" IsScanning="{Binding IsScanning}" />
+        <Grid AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,1,1,0.75" BackgroundColor="White">
+            <ListView HasUnevenRows="True"  ItemsSource="{Binding ScannedEquipments}" SelectedItem="{Binding SelectedEquipment}" ItemSelected="ListView_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Удалить" Command="{Binding Path=BindingContext.DeleteEquipmentCommand, Source={x:Reference MiltiScannerPage}}" CommandParameter="{Binding}" />
+                            </ViewCell.ContextActions>
+                            <StackLayout Padding="16,8,16,8">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                                    <Label Text="{Binding Model.EquipmentType}" TextColor="Black" FontSize="14" />
+                                    <Label Text="{Binding Model.VendorName,StringFormat=' {0}'}" TextColor="Black" FontSize="14" />
+                                    <Label Text="{Binding Model.ModelName,StringFormat=' {0}'}" TextColor="Black" FontSize="14" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                                    <Label Text="{Binding PositionState}" FontSize="Small" HorizontalOptions="StartAndExpand" TextColor="Gray"/>
+                                    <Label Text="{Binding ISNumber,StringFormat='ИСН: {0}'}" FontSize="12" VerticalOptions="End" TextColor="Gray"/>
+                                </StackLayout>
+                                <StackLayout.Triggers>
+                                    <DataTrigger TargetType="StackLayout" Binding="{Binding HealthState}" Value="Не работает">
+                                        <Setter Property="BackgroundColor" Value="MistyRose" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="StackLayout" Binding="{Binding HealthState}" Value="Плохое">
+                                        <Setter Property="BackgroundColor" Value="AntiqueWhite" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="StackLayout" Binding="{Binding HealthState}" Value="Похищен">
+                                        <Setter Property="BackgroundColor" Value="LightCyan" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="StackLayout" Binding="{Binding HealthState}" Value="Спизжен">
+                                        <Setter Property="BackgroundColor" Value="LightCyan" />
+                                    </DataTrigger>
+                                </StackLayout.Triggers>
                             </StackLayout>
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-                                <Label Text="{Binding PositionState}" FontSize="Small" HorizontalOptions="StartAndExpand" TextColor="Gray"/>
-                                <Label Text="{Binding ISNumber,StringFormat='ИСН: {0}'}" FontSize="12" VerticalOptions="End" TextColor="Gray"/>
-                            </StackLayout>
-                            <StackLayout.Triggers>
-                                <DataTrigger TargetType="StackLayout" Binding="{Binding HealthState}" Value="Не работает">
-                                    <Setter Property="BackgroundColor" Value="MistyRose" />
-                                </DataTrigger>
-                                <DataTrigger TargetType="StackLayout" Binding="{Binding HealthState}" Value="Плохое">
-                                    <Setter Property="BackgroundColor" Value="AntiqueWhite" />
-                                </DataTrigger>
-                                <DataTrigger TargetType="StackLayout" Binding="{Binding HealthState}" Value="Похищен">
-                                    <Setter Property="BackgroundColor" Value="LightCyan" />
-                                </DataTrigger>
-                                <DataTrigger TargetType="StackLayout" Binding="{Binding HealthState}" Value="Спизжен">
-                                    <Setter Property="BackgroundColor" Value="LightCyan" />
-                                </DataTrigger>
-                            </StackLayout.Triggers>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        <BoxView HeightRequest="3" Color="Red" Opacity=".5" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" AbsoluteLayout.LayoutBounds="0,.125,1,3" />
         <ActivityIndicator AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
     </AbsoluteLayout>
 </ContentPage>
