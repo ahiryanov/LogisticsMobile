@@ -5,6 +5,7 @@
              Title="Модель">
     <ContentPage.Content>
         <StackLayout>
+            <SearchBar Placeholder="Поиск" Text="{Binding SearchingText}" />
             <ListView ItemSelected="ListView_ItemSelected" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel,Mode=TwoWay}" RowHeight="64" IsRefreshing="{Binding IsBusy,Mode=OneWay}" RefreshCommand="{Binding RefreshCommand}" IsPullToRefreshEnabled="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>

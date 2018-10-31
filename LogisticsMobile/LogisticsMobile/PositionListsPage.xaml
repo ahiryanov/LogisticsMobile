@@ -4,7 +4,7 @@
              x:Class="LogisticsMobile.PositionListsPage">
     <StackLayout>
         <SearchBar Placeholder="Поиск" Text="{Binding SearchingText}" />
-        <ListView ItemSelected="ListView_ItemSelected" SelectedItem="{Binding SelectedPosition}" ItemsSource="{Binding Positions}" IsPullToRefreshEnabled="True" IsRefreshing="{Binding IsBusy, Mode=OneWay}" RefreshCommand="{Binding RefreshCommand}">
+        <ListView ItemSelected="ListView_ItemSelected" SelectedItem="{Binding SelectedPosition}" ItemsSource="{Binding Positions}" IsPullToRefreshEnabled="True" IsRefreshing="{Binding IsBusy}" RefreshCommand="{Binding RefreshCommand}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

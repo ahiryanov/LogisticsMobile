@@ -16,6 +16,7 @@ namespace LogisticsMobile.ViewModels
     public class MultiScannerPageViewModel : INotifyPropertyChanged
     {
         private ServerController _ctrl = new ServerController();
+        private bool _popupOpen = false;
         public INavigation Navigation { get; set; }
         public ICommand DeleteEquipmentCommand { protected set; get; }
         public ICommand TransferEquipmentsCommand { get; private set; }
@@ -30,15 +31,20 @@ namespace LogisticsMobile.ViewModels
 
         private async void TransferEquipments(object obj)
         {
-            var popupPage = new PopupTransferEquipment(await _ctrl.GetPositions());
-            popupPage.Disappearing += PopupPage_DisappearingAsync;
-            await PopupNavigation.Instance.PushAsync(popupPage);
+            if (!_popupOpen)
+            {
+                _popupOpen = true;
+                var popupPage = new PopupTransferEquipment(await _ctrl.GetPositions());
+                popupPage.Disappearing += PopupPage_DisappearingAsync;
+                await PopupNavigation.Instance.PushAsync(popupPage);
+            }
         }
 
         private async void PopupPage_DisappearingAsync(object sender, EventArgs e)
         {
+            _popupOpen = false;
             SelectedPosition = ((sender as PopupTransferEquipment).BindingContext as PopupTransferEquipmentViewModel).ConfirmedPosition;
-            if (SelectedPosition != null && ScannedEquipments.Count > 0)
+            if(!string.IsNullOrEmpty(SelectedPosition) && ScannedEquipments.Count > 0)
             {
                 int.TryParse(CrossSettings.Current.GetValueOrDefault("UserID", null), out _userID);
                 if (await _ctrl.TransferEquipments(ScannedEquipments.ToList(), _userID, SelectedPosition) != null)

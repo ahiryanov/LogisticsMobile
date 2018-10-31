@@ -53,10 +53,10 @@ namespace LogisticsMobile
         public PositionListsPageViewModel()
         {
             LoadPositionsAsync();
-            RefreshCommand = new Command(LoadPositionsAsync);
+            RefreshCommand = new Command(() => LoadPositionsAsync());
         }
 
-        private async void LoadPositionsAsync()
+        private async Task LoadPositionsAsync()
         {
             IsBusy = true;
             await Task.Run(async () => _allPositions = new ObservableCollection<string>(await _ctrl.GetPositions()));

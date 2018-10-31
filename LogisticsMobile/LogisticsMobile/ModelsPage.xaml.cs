@@ -16,13 +16,13 @@ namespace LogisticsMobile
 		public ModelsPage (string category, string type)
 		{
 			InitializeComponent();
-            ModelsPageViewModel mpvm = new ModelsPageViewModel(category, type) { Navigation = this.Navigation };
-            BindingContext = mpvm;
-		}
+            BindingContext = new ModelsPageViewModel(category, type) { Navigation = this.Navigation };
+        }
 
         public ModelsPage(string position)
         {
             InitializeComponent();
+            Title = position;
             BindingContext = new ModelsPageViewModel(position) { Navigation = this.Navigation };
         }
 

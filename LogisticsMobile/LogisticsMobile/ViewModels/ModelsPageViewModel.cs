@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -8,66 +9,51 @@ using Xamarin.Forms;
 
 namespace LogisticsMobile.ViewModels
 {
-    class ModelsPageViewModel : INotifyPropertyChanged
+    public class ModelsPageViewModel : INotifyPropertyChanged
     {
-        public INavigation Navigation;
+        public INavigation Navigation { get; set; }
 
         public ICommand RefreshCommand { get; set; }
 
-        ServerController _ctrl = new ServerController();
-        private bool _isBusy;
-        private List<ModelCount> _models;
+        private ServerController _ctrl = new ServerController();
         private ModelCount _selectedModel;
-        private string _category;
-        private string _type;
+        private List<ModelCount> _allModels;
+        private bool _isByPosition = false;
+        private string _position;
 
         public ModelsPageViewModel(string category, string type)
         {
-            _category = category;
-            _type = type;
-            RefreshCommand = new Command(() => LoadModels(category, type));
-            LoadModels(category, type);
+            RefreshCommand = new Command(() => LoadModelsAsync(category, type));
+            LoadModelsAsync(category, type);
         }
 
         public ModelsPageViewModel(string position)
         {
             RefreshCommand = new Command(() => LoadModelsByPositionAsync(position));
             LoadModelsByPositionAsync(position);
+            _position = position;
+            _isByPosition = true;
         }
 
-        private async void LoadModelsByPositionAsync(string position)
+        private async Task LoadModelsByPositionAsync(string position)
         {
             IsBusy = true;
-            await Task.Run(async () => Models = await _ctrl.GetModelsByPosition(position));
+            await Task.Run(async () => _allModels = await _ctrl.GetModelsByPosition(position));
+            Models = _allModels;
             IsBusy = false;
         }
 
-        private async void LoadModels(string category, string type)
+        private async Task LoadModelsAsync(string category, string type)
         {
             IsBusy = true;
-            await Task.Run(async () => Models = await _ctrl.GetModels(category, type));
+            await Task.Run(async () => _allModels = await _ctrl.GetModels(category, type));
+            Models = _allModels;
             IsBusy = false;
         }
 
-        public bool IsBusy
-        {
-            get { return _isBusy; }
-            set
-            {
-                _isBusy = value;
-                OnPropertyChanged(nameof(IsBusy));
-            }
-        }
+        public bool IsBusy { get; set; }
 
-        public List<ModelCount> Models
-        {
-            get { return _models; }
-            set
-            {
-                _models = value;
-                OnPropertyChanged(nameof(Models));
-            }
-        }
+        public List<ModelCount> Models { get; set; }
 
         public ModelCount SelectedModel
         {
@@ -81,9 +67,30 @@ namespace LogisticsMobile.ViewModels
                     OnPropertyChanged(nameof(SelectedModel));
                     if (tempModel != null)
                     {
-                        Navigation.PushAsync(new EquipmentsPage(tempModel));
+                        if (!_isByPosition)
+                            Navigation.PushAsync(new EquipmentsPage(tempModel));
+                        else
+                            Navigation.PushAsync(new EquipmentsPage(tempModel, _position));
                     }
                 }
+            }
+        }
+
+        private string _searchingText;
+        public string SearchingText
+        {
+            get => _searchingText;
+            set
+            {
+                _searchingText = value;
+                if (!string.IsNullOrEmpty(_searchingText))
+                    Models = _allModels.Where(
+                        r => r.Model.VendorName.ToLower().Contains(_searchingText.ToLower()) ||
+                        r.Model.ModelName.ToLower().Contains(_searchingText.ToLower()) ||
+                        r.Model.EquipmentType.ToLower().Contains(_searchingText.ToLower())).ToList();
+                else
+                    Models = _allModels;
+
             }
         }
 

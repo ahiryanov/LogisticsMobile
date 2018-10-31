@@ -27,6 +27,14 @@ namespace LogisticsMobile
             Title = string.Format("{0} {1} ({2} шт)", modelCount.Model.VendorName, modelCount.Model.ModelName, modelCount.Count);
         }
 
+        public EquipmentsPage(ModelCount modelCount, string position)
+        {
+            InitializeComponent();
+            EquipmentsPageViewModel epvm = new EquipmentsPageViewModel(modelCount.Model, position) { Navigation = this.Navigation };
+            BindingContext = epvm;
+            Title = string.Format("{0} {1} ({2} шт)", modelCount.Model.VendorName, modelCount.Model.ModelName, modelCount.Count);
+        }
+
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             (sender as ListView).SelectedItem = null;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace LogisticsMobile.ViewModels
     class EquipmentsPageViewModel : INotifyPropertyChanged
     {
         public INavigation Navigation;
-        public ICommand RefreshCommand { get; protected set; }
+        public ICommand RefreshCommand { protected set; get; }
         public ICommand AddEquipmentCommand { protected set; get; }
         public ICommand DeleteEquipmentCommand { protected set; get; }
 
@@ -29,7 +30,28 @@ namespace LogisticsMobile.ViewModels
             LoadEquipments();
         }
 
-       
+        public EquipmentsPageViewModel(Model model, string position)
+        {
+            _model = model;
+            RefreshCommand = new Command(LoadEquipments);
+            AddEquipmentCommand = new Command(AddEquipment);
+            DeleteEquipmentCommand = new Command(DeleteEquipment);
+            LoadEquipmentsByPosition(position);
+        }
+
+        private void LoadEquipmentsByPosition(string position)
+        {
+            IsBusy = true;
+            Task.Run(() => LoadAndGroupingByPositionAsync(position).Wait());
+            IsBusy = false;
+        }
+
+        private async Task LoadAndGroupingByPositionAsync(string position)
+        {
+            _equipments = new ObservableCollection<Equipment>(await _ctrl.GetEquipmentsByPosition(_model, position));
+            var grouping = _equipments.GroupBy(e => e.PositionState).Select(g => new EquipmentsGrouping<string, Equipment>(g.Key, g));
+            Equipments = new ObservableCollection<EquipmentsGrouping<string, Equipment>>(grouping);
+        }
 
         private async void DeleteEquipment(object obj)
         {

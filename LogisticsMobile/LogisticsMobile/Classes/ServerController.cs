@@ -101,9 +101,16 @@ namespace LogisticsMobile
         public async Task<List<ModelCount>> GetModelsByPosition(string position)
         {
             HttpClient client = GetClientWithAuth();
-            var tempurl = Url + Model + position;
-            string result = await client.GetStringAsync(tempurl);
-            return JsonConvert.DeserializeObject<List<ModelCount>>(result);
+            var response = await client.PostAsync(Url + Model + "GetModelsByPosition",
+                new StringContent(
+                    JsonConvert.SerializeObject(position),
+                    Encoding.UTF8, "application/json"));
+
+            if (response.StatusCode != HttpStatusCode.OK)
+                return null;
+
+            return JsonConvert.DeserializeObject<List<ModelCount>>(
+                await response.Content.ReadAsStringAsync());
         }
 
         public async Task<Model> GetModel(int idModel)
@@ -119,6 +126,21 @@ namespace LogisticsMobile
             HttpClient client = GetClientWithAuth();
             string result = await client.GetStringAsync(Url + Equipments + model.Category + "/" + model.EquipmentType + "/" + model.IDModel);
             return JsonConvert.DeserializeObject<List<Equipment>>(result);
+        }
+
+        public async Task<List<Equipment>> GetEquipmentsByPosition(Model model, string position)
+        {
+            HttpClient client = GetClientWithAuth();
+            var response = await client.PostAsync(Url + Equipments + model.Category + "/" + model.EquipmentType + "/" + model.IDModel,
+                new StringContent(
+                    JsonConvert.SerializeObject(position),
+                    Encoding.UTF8, "application/json"));
+
+            if (response.StatusCode != HttpStatusCode.OK)
+                return null;
+
+            return JsonConvert.DeserializeObject<List<Equipment>>(
+                await response.Content.ReadAsStringAsync());
         }
 
         public async Task<List<Equipment>> GetEquipment(string idOrSerial)
