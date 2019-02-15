@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Android.Views;
 
 namespace LogisticsMobile.Droid
 {
@@ -16,13 +17,21 @@ namespace LogisticsMobile.Droid
             base.OnCreate(savedInstanceState);
             
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App());
+            
 
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+
+            this.Window.SetFlags(WindowManagerFlags.KeepScreenOn, WindowManagerFlags.KeepScreenOn);
+
+
+            Plugin.Iconize.Iconize.Init(Resource.Id.toolbar, Resource.Id.sliding_tabs); // Could also be Resource.Id.tabs
+
+
+            LoadApplication(new App());
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

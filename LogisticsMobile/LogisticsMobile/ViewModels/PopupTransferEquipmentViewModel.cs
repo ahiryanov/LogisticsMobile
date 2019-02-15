@@ -13,10 +13,6 @@ namespace LogisticsMobile.ViewModels
 {
     class PopupTransferEquipmentViewModel : INotifyPropertyChanged
     {
-        public ICommand ConfirmTransferPositionCommand { get; private set; }
-        public bool IsVisibleListView { get; set; } = false;
-        public ObservableCollection<string> Positions { get; set; }
-
         private List<string> _allPositions;
         public PopupTransferEquipmentViewModel(List<string> allPositions)
         {
@@ -26,13 +22,13 @@ namespace LogisticsMobile.ViewModels
 
         private void ConfirmTransferPosition()
         {
+            ConfirmedPosition = Position;
             PopupNavigation.Instance.PopAsync();
         }
 
+        public string ConfirmedPosition { get; set; }
+
         private string _position;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public string Position
         {
             get { return _position; }
@@ -58,9 +54,17 @@ namespace LogisticsMobile.ViewModels
             set
             {
                 _selectedPosition = value;
-                if(_selectedPosition!=null)
+                if (_selectedPosition != null)
+                {
                     Position = _selectedPosition;
+                    IsVisibleListView = false;
+                }
             }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public ICommand ConfirmTransferPositionCommand { get; private set; }
+        public bool IsVisibleListView { get; set; } = false;
+        public ObservableCollection<string> Positions { get; set; }
     }
 }

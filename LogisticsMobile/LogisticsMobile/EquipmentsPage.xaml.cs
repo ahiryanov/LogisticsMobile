@@ -1,4 +1,5 @@
 ﻿using LogisticsMobile.ViewModels;
+using Plugin.Iconize.Fonts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,20 @@ namespace LogisticsMobile
 		public EquipmentsPage (ModelCount modelCount)
 		{
 			InitializeComponent ();
+
+            var addToolbarItem = new ToolbarItem() { Text = "Add" };
+            addToolbarItem.SetBinding(ToolbarItem.CommandProperty, new Binding("AddEquipmentCommand"));
+            ToolbarItems.Add(addToolbarItem);
+
             EquipmentsPageViewModel epvm = new EquipmentsPageViewModel(modelCount.Model) { Navigation = this.Navigation };
+            BindingContext = epvm;
+            Title = string.Format("{0} {1} ({2} шт)", modelCount.Model.VendorName, modelCount.Model.ModelName, modelCount.Count);
+        }
+
+        public EquipmentsPage(ModelCount modelCount, string position)
+        {
+            InitializeComponent();
+            EquipmentsPageViewModel epvm = new EquipmentsPageViewModel(modelCount.Model, position) { Navigation = this.Navigation };
             BindingContext = epvm;
             Title = string.Format("{0} {1} ({2} шт)", modelCount.Model.VendorName, modelCount.Model.ModelName, modelCount.Count);
         }

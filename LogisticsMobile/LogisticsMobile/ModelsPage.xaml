@@ -5,6 +5,7 @@
              Title="Модель">
     <ContentPage.Content>
         <StackLayout>
+            <SearchBar Placeholder="Поиск" Text="{Binding SearchingText}" />
             <ListView ItemSelected="ListView_ItemSelected" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel,Mode=TwoWay}" RowHeight="64" IsRefreshing="{Binding IsBusy,Mode=OneWay}" RefreshCommand="{Binding RefreshCommand}" IsPullToRefreshEnabled="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -16,7 +17,7 @@
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                     <Label HorizontalOptions="StartAndExpand" Text="{Binding Model.EquipmentType}" TextColor="Gray" FontSize="Small"/>
-                                    <Label Text="{Binding Count,StringFormat='едениц оборудования: {0}'}" FontSize="12" VerticalOptions="End"/>
+                                    <Label Text="{Binding Count,StringFormat='единиц оборудования: {0}'}" FontSize="12" VerticalOptions="End"/>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>

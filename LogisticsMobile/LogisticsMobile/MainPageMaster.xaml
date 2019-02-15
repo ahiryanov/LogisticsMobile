@@ -32,6 +32,6 @@
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
-    <Button Text="Logout" Clicked="Logout_Clicked"/>
+    <Button Text="Выйти" Clicked="Logout_Clicked"/>
 </StackLayout>
 </ContentPage>

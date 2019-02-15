@@ -1,4 +1,5 @@
 ﻿using LogisticsMobile.ViewModels;
+using Plugin.Iconize;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,6 +12,13 @@ namespace LogisticsMobile
         public App()
         {
             InitializeComponent();
+
+            Iconize
+                          .With(new Plugin.Iconize.Fonts.FontAwesomeRegularModule())
+                          .With(new Plugin.Iconize.Fonts.FontAwesomeBrandsModule())
+                          .With(new Plugin.Iconize.Fonts.FontAwesomeSolidModule())
+                          .With(new Plugin.Iconize.Fonts.MaterialModule());
+
 
             MainPage = new LoginPage();
             MessagingCenter.Subscribe<LoginPageViewModel>(this, "AuthentificationPassed", (sender) => {

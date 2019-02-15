@@ -26,16 +26,18 @@
                         <Label Text="Оставаться в программе" HorizontalOptions="StartAndExpand"/>
                         <Switch IsToggled="{Binding IsStayLogin}" />
                     </StackLayout>
-                    <Button Text="Нажать" Command="{Binding LoginButtonCommand}" BackgroundColor="White"/>
+                    <Button Text="Войти" Command="{Binding LoginButtonCommand}" BackgroundColor="White"/>
                 </StackLayout>
             </Frame>
         </stateContainer:StateCondition>
 
         <stateContainer:StateCondition State="Loading">
-            <StackLayout>
-                <Label Text="Подключение к базе" HorizontalOptions="Center" />
-                <ActivityIndicator IsRunning="True" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
-            </StackLayout>
+                <Frame HorizontalOptions="Center" VerticalOptions="Center">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Подключение к базе" VerticalOptions="Center"/>
+                        <ActivityIndicator IsRunning="True" />
+                    </StackLayout>
+                </Frame>
         </stateContainer:StateCondition>
 
         <stateContainer:StateCondition State="AuthentificationFailed">

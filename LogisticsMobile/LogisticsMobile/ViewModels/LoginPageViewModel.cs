@@ -54,6 +54,7 @@ namespace LogisticsMobile.ViewModels
 
         private void SaveValidUser(Manager validUser)
         {
+            CrossSettings.Current.AddOrUpdateValue("UserID", validUser.idManager.ToString());
             CrossSettings.Current.AddOrUpdateValue("Family", validUser.family);
             CrossSettings.Current.AddOrUpdateValue("Name", validUser.name);
             CrossSettings.Current.AddOrUpdateValue("Password", validUser.password);

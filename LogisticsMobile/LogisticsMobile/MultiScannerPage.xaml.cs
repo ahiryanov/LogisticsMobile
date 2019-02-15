@@ -18,6 +18,7 @@ namespace LogisticsMobile
 			InitializeComponent();
             BindingContext = new MultiScannerPageViewModel() { Navigation = this.Navigation };
             zxing.Options.CameraResolutionSelector = HandleCameraResolutionSelectorDelegate;
+            
         }
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -42,6 +43,9 @@ namespace LogisticsMobile
 
         private void MiltiScannerPage_Appearing(object sender, EventArgs e)
         {
+            var tempView = Content;
+            Content = null;
+            Content = tempView;
             (((ContentPage)sender).BindingContext as MultiScannerPageViewModel).IsScanning = true;
         }
 

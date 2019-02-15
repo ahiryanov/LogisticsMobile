@@ -36,7 +36,7 @@ namespace LogisticsMobile
                 MenuItems = new ObservableCollection<MainPageMenuItem>(new[]
                 {
                     new MainPageMenuItem { Id = 0, Title = "Каталог", TargetType = typeof(CategoriesPage) },
-                    new MainPageMenuItem { Id = 1, Title = "Настройки", TargetType = typeof(SettingsPage) },
+                    new MainPageMenuItem { Id = 1, Title = "Списки по положению", TargetType = typeof(PositionListsPage) },
                     new MainPageMenuItem { Id = 2, Title = "Сканировать", TargetType = typeof(BarCodeScanPage) },
                     new MainPageMenuItem { Id = 3, Title = "Перемещение", TargetType = typeof(MultiScannerPage) },
                 });
@@ -57,6 +57,7 @@ namespace LogisticsMobile
 
         private void Logout_Clicked(object sender, EventArgs e)
         {
+            CrossSettings.Current.Remove("UserID");
             CrossSettings.Current.Remove("Family");
             CrossSettings.Current.Remove("Name");
             CrossSettings.Current.Remove("Password");

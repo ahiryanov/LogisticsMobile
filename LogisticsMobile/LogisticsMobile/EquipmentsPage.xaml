@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LogisticsMobile.EquipmentsPage"
-             x:Name="EquipmentsPageQ">
+             x:Name="EquipmentsPageQ"
+             xmlns:iconize="clr-namespace:Plugin.Iconize;assembly=Plugin.Iconize">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddEquipmentCommand}" />
+        <iconize:IconToolbarItem Command="{Binding AddEquipmentCommand}" Icon="fab-app-store" IconColor="White"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
@@ -32,23 +33,24 @@
                                     <Label Text="{Binding PositionState}" TextColor="Black" FontSize="15" />
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                    <Label Text="{Binding HealthState}" FontSize="Small" HorizontalOptions="StartAndExpand" TextColor="Gray"/>
+                                    <Label Text="{Binding HealthState}" FontSize="Small" HorizontalOptions="StartAndExpand" TextColor="Gray">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding HealthState}" Value="Не работает">
+                                                <Setter Property="BackgroundColor" Value="MistyRose" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding HealthState}" Value="Плохое">
+                                                <Setter Property="BackgroundColor" Value="AntiqueWhite" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding HealthState}" Value="Похищен">
+                                                <Setter Property="BackgroundColor" Value="LightCyan" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding HealthState}" Value="Спизжен">
+                                                <Setter Property="BackgroundColor" Value="LightCyan" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
                                     <Label Text="{Binding ISNumber,StringFormat='ИСН: {0}'}" FontSize="12" VerticalOptions="End" TextColor="Gray"/>
                                 </StackLayout>
-                                <StackLayout.Triggers>
-                                    <DataTrigger TargetType="StackLayout" Binding="{Binding HealthState}" Value="Не работает">
-                                        <Setter Property="BackgroundColor" Value="MistyRose" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="StackLayout" Binding="{Binding HealthState}" Value="Плохое">
-                                        <Setter Property="BackgroundColor" Value="AntiqueWhite" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="StackLayout" Binding="{Binding HealthState}" Value="Похищен">
-                                        <Setter Property="BackgroundColor" Value="LightCyan" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="StackLayout" Binding="{Binding HealthState}" Value="Спизжен">
-                                        <Setter Property="BackgroundColor" Value="LightCyan" />
-                                    </DataTrigger>
-                                </StackLayout.Triggers>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
